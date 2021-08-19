@@ -36,14 +36,14 @@ public class GoogleOauthService implements OauthService {
                 .grantType(googleOauthProperties.getGrantType())
                 .build();
 
-        AccessTokenResponse googleAccessTokenResponse = deliverRequest(googleAccessTokenRequest);
+        AccessTokenResponse googleAccessTokenResponse = sendAccessTokenRequest(googleAccessTokenRequest);
 
         log.debug("AccessToken : {}", googleAccessTokenResponse);
 
         return googleAccessTokenResponse;
     }
 
-    private AccessTokenResponse deliverRequest(GoogleAccessTokenRequest googleAccessTokenRequest) {
+    private AccessTokenResponse sendAccessTokenRequest(GoogleAccessTokenRequest googleAccessTokenRequest) {
         return webClient.post()
                 .uri(googleOauthProperties.getAccessTokenUri())
                 .contentType(MediaType.APPLICATION_JSON)
