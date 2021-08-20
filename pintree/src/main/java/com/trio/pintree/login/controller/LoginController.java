@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.trio.pintree.login.component.OauthServiceFactory;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @Slf4j
 @RestController
@@ -30,4 +33,12 @@ public class LoginController {
         return ResponseEntity.ok(accessTokenResponse);
     }
 
+    @GetMapping("/kakao")
+    public ResponseEntity<AuthResponse> issueAccessToken(String code) {
+        OauthServiceFactory oauthServiceFactory = loginService.getOauthServiceFactory();
+        AccessTokenResponse accessTokenResponse = oauthServiceFactory.getAccessToken(code);
+
+        return ResponseEntity.status(CREATED)
+                .body(new AuthResponse(accessTokenResponse.getAccessToken()));
+    }
 }
