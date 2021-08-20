@@ -41,6 +41,7 @@ public class KakaoOauthService implements OauthService {
                 .post(kaKaoOauthProperties.getAccessTokenUri()) // status line
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED) // header
                 .body(bodies);
+
         log.debug("accessTokenRequest : {}", kakaoAccessTokenRequest);
 
         KaKaoAccessTokenResponse kaKaoAccessTokenResponse = sendRequestForAccessToken(kakaoAccessTokenRequest);
@@ -63,12 +64,9 @@ public class KakaoOauthService implements OauthService {
 
     // 동작 안하는 메서드
     private KaKaoAccessTokenResponse sendRequestForAccessToken_(RequestEntity<MultiValueMap<String, String>> kakaoAccessTokenRequest) {
-        return webClient.mutate()
-                .build()
-                .post()
+        return webClient.post()
                 .uri(kaKaoOauthProperties.getAccessTokenUri())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .accept(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(kakaoAccessTokenRequest)
                 .retrieve()
                 .bodyToMono(KaKaoAccessTokenResponse.class)

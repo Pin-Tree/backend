@@ -1,6 +1,7 @@
 package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.dto.AccessTokenResponse;
+import com.trio.pintree.login.dto.AuthResponse;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,8 @@ public class LoginController {
     }
 
     @GetMapping("/kakao")
-    public ResponseEntity<AuthResponse> issueAccessToken(String code) {
-        OauthServiceFactory oauthServiceFactory = loginService.getOauthServiceFactory();
-        AccessTokenResponse accessTokenResponse = oauthServiceFactory.getAccessToken(code);
-
-        return ResponseEntity.status(CREATED)
-                .body(new AuthResponse(accessTokenResponse.getAccessToken()));
+    public ResponseEntity<AccessTokenResponse> issueAccessToken(String code) {
+        AccessTokenResponse accessTokenResponse = loginService.issueKakaoAccessToken(code);
+        return ResponseEntity.status(CREATED).body(accessTokenResponse);
     }
 }

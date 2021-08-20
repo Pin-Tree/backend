@@ -15,4 +15,8 @@ public class LoginService {
     public AccessTokenResponse issueGoogleAccessToken(String code) {
         return oauthServiceFactory.dispatchGoogleAccessTokenRequest(code);
     }
+
+    public AccessTokenResponse issueKakaoAccessToken(String code) {
+        return oauthServiceFactory.dispatchKakaoAccessTokenRequest(code);
+    }
 }
