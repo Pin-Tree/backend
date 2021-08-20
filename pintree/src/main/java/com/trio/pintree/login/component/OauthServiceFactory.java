@@ -10,14 +10,10 @@ import java.util.Map;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class OauthServiceFactory {
     private final static String KAKAO_OAUTH_SERVICE_NAME = "kakaoOauthService";
     private final Map<String, OauthService> oauthServiceMap;
-
-    public OauthServiceFactory(Map<String, OauthService> oauthServiceMap) {
-        this.oauthServiceMap = oauthServiceMap;
-        log.debug("oauthServiceMap : {}", oauthServiceMap);
-    }
 
     public KakaoOauthService getKaKaoOauthService() {
         return (KakaoOauthService) oauthServiceMap.get(KAKAO_OAUTH_SERVICE_NAME);
