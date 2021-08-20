@@ -1,6 +1,5 @@
 package com.trio.pintree.login.service;
 
-import com.trio.pintree.login.component.OauthServiceFactory;
 import com.trio.pintree.login.dto.AccessTokenResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

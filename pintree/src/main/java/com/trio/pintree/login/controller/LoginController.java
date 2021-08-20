@@ -1,7 +1,6 @@
 package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.dto.AccessTokenResponse;
-import com.trio.pintree.login.dto.AuthResponse;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.trio.pintree.login.component.OauthServiceFactory;
 
 import static org.springframework.http.HttpStatus.CREATED;
 

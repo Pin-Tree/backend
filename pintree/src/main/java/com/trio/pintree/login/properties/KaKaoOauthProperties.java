@@ -1,4 +1,4 @@
-package com.trio.pintree.login.component;
+package com.trio.pintree.login.properties;
 
 import lombok.Getter;
 import lombok.Setter;
