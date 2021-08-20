@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.HttpStatus.CREATED;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -27,14 +25,16 @@ public class LoginController {
 
         AccessTokenResponse accessTokenResponse = loginService.issueGoogleAccessToken(code);
 
-        log.debug("accessTokenResponse : {}", accessTokenResponse);
-
-        return ResponseEntity.ok(accessTokenResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(accessTokenResponse);
     }
 
     @GetMapping("/kakao")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AccessTokenResponse> issueAccessToken(String code) {
+        log.debug("code: {}", code);
+
         AccessTokenResponse accessTokenResponse = loginService.issueKakaoAccessToken(code);
-        return ResponseEntity.status(CREATED).body(accessTokenResponse);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
     }
 }
