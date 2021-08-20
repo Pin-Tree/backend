@@ -26,9 +26,9 @@ public class KakaoOauthService implements OauthService {
     public KaKaoAccessTokenResponse issueAccessToken(String... str) {
         final String code = str[0];
 
-        MultiValueMap<String, String> kakaoAccessTokenRequest = generateAccessTokenRequest(code);
+        MultiValueMap<String, String> kakaoAccessTokenRequest = generateKakaoAccessTokenRequest(code);
 
-        log.debug("accessTokenRequest : {}", kakaoAccessTokenRequest);
+        log.debug("kakaoAccessTokenRequest : {}", kakaoAccessTokenRequest);
 
         KaKaoAccessTokenResponse kaKaoAccessTokenResponse = sendRequestForAccessToken(kakaoAccessTokenRequest);
 
@@ -49,7 +49,7 @@ public class KakaoOauthService implements OauthService {
                 .orElseThrow(RuntimeException::new);
     }
 
-    private MultiValueMap<String, String> generateAccessTokenRequest(String code) {
+    private MultiValueMap<String, String> generateKakaoAccessTokenRequest(String code) {
         MultiValueMap<String, String> accessTokenRequestMap = new LinkedMultiValueMap<>();
 
         accessTokenRequestMap.add("grant_type", kaKaoOauthProperties.getGrantType());

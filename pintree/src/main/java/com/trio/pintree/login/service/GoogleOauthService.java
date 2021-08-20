@@ -25,22 +25,25 @@ public class GoogleOauthService implements OauthService {
     public AccessTokenResponse issueAccessToken(String... str) {
         String code = str[0];
 
-        log.debug("code : {}", code);
-        log.debug("GoogleOauthProperties : {}", googleOauthProperties);
+        GoogleAccessTokenRequest googleAccessTokenRequest = generateGoogleAccessTokenRequest(code);
 
-        GoogleAccessTokenRequest googleAccessTokenRequest = GoogleAccessTokenRequest.builder()
+        log.debug("googleAccessTokenRequest : {}", googleAccessTokenRequest);
+
+        AccessTokenResponse googleAccessTokenResponse = sendAccessTokenRequest(googleAccessTokenRequest);
+
+        log.debug("googleAccessTokenResponse : {}", googleAccessTokenResponse);
+
+        return googleAccessTokenResponse;
+    }
+
+    private GoogleAccessTokenRequest generateGoogleAccessTokenRequest(String code) {
+        return GoogleAccessTokenRequest.builder()
                 .clientId(googleOauthProperties.getClientId())
                 .clientSecret(googleOauthProperties.getSecretKey())
                 .redirectUri(googleOauthProperties.getRedirectUri())
                 .code(code)
                 .grantType(googleOauthProperties.getGrantType())
                 .build();
-
-        AccessTokenResponse googleAccessTokenResponse = sendAccessTokenRequest(googleAccessTokenRequest);
-
-        log.debug("AccessToken : {}", googleAccessTokenResponse);
-
-        return googleAccessTokenResponse;
     }
 
     private AccessTokenResponse sendAccessTokenRequest(GoogleAccessTokenRequest googleAccessTokenRequest) {
