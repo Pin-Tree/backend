@@ -1,11 +1,8 @@
 package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.component.OauthServiceFactory;
-import com.trio.pintree.login.domain.Member;
-import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.AuthResponse;
 import com.trio.pintree.login.dto.KaKaoAccessTokenResponse;
-import com.trio.pintree.login.service.KakaoOauthService;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +22,15 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("/kakao")
-    public ResponseEntity<AuthResponse> auth(@RequestBody AuthRequest authRequest) {
-        String code = authRequest.getCode();
-
+    public ResponseEntity<AuthResponse> auth(String code) {
         OauthServiceFactory oauthServiceFactory = loginService.getOauthServiceFactory();
-        KakaoOauthService kakaoOauthService = oauthServiceFactory.getKaKaoOauthService();
 
-        KaKaoAccessTokenResponse accessTokenResponse = kakaoOauthService.issueAccessToken(code);
+        KaKaoAccessTokenResponse accessTokenResponse = oauthServiceFactory.getKaKaoOauthService().issueAccessToken(code);
 
         //Member member = kakaoOauthService.getMemberFrom(accessTokenResponse);
 
         return ResponseEntity.status(CREATED)
-                             .body(new AuthResponse(accessTokenResponse.getAccessToken()));
+                .body(new AuthResponse(accessTokenResponse.getAccessToken()));
     }
 
 }
