@@ -1,17 +1,15 @@
 package com.trio.pintree.login.controller;
 
-import com.trio.pintree.login.component.OauthServiceFactory;
 import com.trio.pintree.login.dto.AccessTokenResponse;
-import com.trio.pintree.login.dto.AuthResponse;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import static org.springframework.http.HttpStatus.CREATED;
 
 @Slf4j
 @RestController
@@ -20,12 +18,23 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class LoginController {
     private final LoginService loginService;
 
-    @GetMapping("/kakao")
-    public ResponseEntity<AuthResponse> issueAccessToken(String code) {
-        OauthServiceFactory oauthServiceFactory = loginService.getOauthServiceFactory();
-        AccessTokenResponse accessTokenResponse = oauthServiceFactory.getAccessToken(code);
+    @GetMapping("/google")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<AccessTokenResponse> issueGoogleAccessToken(String code) {
+        log.debug("code: {}", code);
 
-        return ResponseEntity.status(CREATED)
-                .body(new AuthResponse(accessTokenResponse.getAccessToken()));
+        AccessTokenResponse accessTokenResponse = loginService.issueGoogleAccessToken(code);
+
+        return ResponseEntity.status(HttpStatus.OK).body(accessTokenResponse);
+    }
+
+    @GetMapping("/kakao")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AccessTokenResponse> issueAccessToken(String code) {
+        log.debug("code: {}", code);
+
+        AccessTokenResponse accessTokenResponse = loginService.issueKakaoAccessToken(code);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
     }
 }
