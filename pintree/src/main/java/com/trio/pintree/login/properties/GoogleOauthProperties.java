@@ -1,20 +1,20 @@
 package com.trio.pintree.login.properties;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "oauth.google")
-@Setter
 @Getter
 @ToString
+@RequiredArgsConstructor
 public class GoogleOauthProperties {
-    private String clientId;
-    private String secretKey;
-    private String accessTokenUri;
-    private String redirectUri;
-    private String grantType;
+    private final String clientId;
+    private final String secretKey;
+    private final String accessTokenUri;
+    private final String redirectUri;
+    private final String grantType;
 }

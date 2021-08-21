@@ -1,19 +1,24 @@
 package com.trio.pintree.login.properties;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+@ConstructorBinding
+@ConfigurationProperties(prefix = "oauth.kakao")
 @Getter
-@Setter
-@Component
-@ConfigurationProperties("oauth.kakao")
+@ToString
+@RequiredArgsConstructor
 public class KaKaoOauthProperties {
-    private String clientId;
-    private String secretKey;
-    private String accessTokenUri;
-    private String redirectUri;
-    private String grantType;
-    private String userInfo;
+    private final String clientId;
+    private final String secretKey;
+    private final String accessTokenUri;
+    private final String redirectUri;
+    private final String grantType;
+    private final String userInfo;
 }
