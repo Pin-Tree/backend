@@ -1,4 +1,4 @@
-package com.trio.pintree.login.component;
+package com.trio.pintree.login.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

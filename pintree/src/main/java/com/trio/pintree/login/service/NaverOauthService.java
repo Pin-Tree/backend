@@ -1,6 +1,6 @@
 package com.trio.pintree.login.service;
 
-import com.trio.pintree.login.component.NaverOauthProperties;
+import com.trio.pintree.login.properties.NaverOauthProperties;
 import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AccessTokenResponse;
 import com.trio.pintree.login.dto.NaverAccessTokenResponse;

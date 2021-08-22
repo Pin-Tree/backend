@@ -1,4 +1,4 @@
-package com.trio.pintree.login.component;
+package com.trio.pintree.login.properties;
 
 import com.trio.pintree.login.dto.NaverAccessTokenRequest;
 import lombok.Data;

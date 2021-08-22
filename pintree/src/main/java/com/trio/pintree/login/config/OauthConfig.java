@@ -1,5 +1,6 @@
-package com.trio.pintree.login.component;
+package com.trio.pintree.login.config;
 
+import com.trio.pintree.login.interceptor.NaverOauthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
