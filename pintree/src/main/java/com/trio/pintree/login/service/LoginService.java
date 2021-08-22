@@ -18,4 +18,8 @@ public class LoginService {
     public AccessTokenResponse issueKakaoAccessToken(String code) {
         return oauthServiceFactory.dispatchKakaoAccessTokenRequest(code);
     }
+
+    public AccessTokenResponse issueNaverAccessToken(String code, String state) {
+        return oauthServiceFactory.dispatchNaverAccessTokenRequest(code, state);
+    }
 }
