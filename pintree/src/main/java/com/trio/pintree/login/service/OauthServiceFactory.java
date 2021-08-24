@@ -22,4 +22,8 @@ public class OauthServiceFactory {
     public AccessTokenResponse dispatchKakaoAccessTokenRequest(String code) {
         return oauthServiceMap.get("kakaoOauthService").issueAccessToken(code);
     }
+
+    public AccessTokenResponse dispatchNaverAccessTokenRequest(String code, String state) {
+        return oauthServiceMap.get("naverOauthService").issueAccessToken(code, state);
+    }
 }

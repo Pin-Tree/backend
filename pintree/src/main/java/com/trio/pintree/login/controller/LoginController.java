@@ -30,10 +30,21 @@ public class LoginController {
 
     @GetMapping("/kakao")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccessTokenResponse> issueAccessToken(String code) {
+    public ResponseEntity<AccessTokenResponse> issueKaKaoAccessToken(String code) {
         log.debug("code: {}", code);
 
         AccessTokenResponse accessTokenResponse = loginService.issueKakaoAccessToken(code);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
+    }
+
+    @GetMapping("/naver")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AccessTokenResponse> issueNaverAccessToken(String code, String state) {
+        log.debug("code: {}", code);
+        log.debug("state: {}", state);
+
+        AccessTokenResponse accessTokenResponse = loginService.issueNaverAccessToken(code, state);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
     }
