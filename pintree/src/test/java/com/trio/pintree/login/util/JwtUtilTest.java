@@ -26,18 +26,20 @@ class JwtUtilTest {
     }
 
     @ParameterizedTest
-    @MethodSource("UUID가_비어있다면_JWT_생성은_실패한다")
-    void UUID가_비어있다면_JWT_생성은_실패한다(String uuid, String expectedMessage) {
-        assertThatThrownBy(() -> JwtUtil.createJwt(uuid)).hasMessageContaining(expectedMessage);
+    @MethodSource("JWT_생성_실패")
+    void JWT_생성_실패(String desc, String uuid, String expectedMessage) {
+        assertThatThrownBy(() -> JwtUtil.createJwt(uuid)).as(desc).hasMessageContaining(expectedMessage);
     }
 
-    static Stream<Arguments> UUID가_비어있다면_JWT_생성은_실패한다() {
+    static Stream<Arguments> JWT_생성_실패() {
         return Stream.of(
                 Arguments.arguments(
+                        "UUID가 빈 문자열인 경우",
                         "",
                         "JWT 생성 실패"
                 ),
                 Arguments.arguments(
+                        "UUID가 null인 경우",
                         null,
                         "JWT 생성 실패"
                 )
