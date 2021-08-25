@@ -27,8 +27,12 @@ public class Member {
     private String username;
     private String nickname;
 
-    public Member(String username, String nickname) {
+    private Member(String username, String nickname) {
         this.username = username;
         this.nickname = nickname;
+    }
+
+    public static Member create(String username, String nickname) {
+        return new Member(username, nickname);
     }
 }

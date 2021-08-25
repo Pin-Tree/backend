@@ -26,7 +26,7 @@ class MemberTest {
     @DisplayName("회원 정보 추가 여부를 확인한다.")
     void memberInsertTest() {
         //given
-        Member member = new Member("유저네임1", "닉네임1");
+        Member member = Member.create("유저네임1", "닉네임1");
 
         //when
         UUID memberId = memberService.joinMember(member);
@@ -41,7 +41,7 @@ class MemberTest {
     public void memberPkLengthTest() {
         //given
         int expectedLength = 36;
-        Member member = new Member("유저네임1", "닉네임1");
+        Member member = Member.create("유저네임1", "닉네임1");
 
         //when
         UUID memberId = memberService.joinMember(member);
