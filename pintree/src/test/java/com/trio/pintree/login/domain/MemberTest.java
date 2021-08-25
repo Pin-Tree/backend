@@ -35,4 +35,19 @@ class MemberTest {
         assertThat(member.getId())
                 .isEqualTo(memberService.findById(memberId).getUuid());
     }
+
+    @Test
+    @DisplayName("회원 PK값의 길이는 36이어야 한다.")
+    public void memberPkLengthTest() {
+        //given
+        int expectedLength = 36;
+        Member member = new Member("유저네임1", "닉네임1");
+
+        //when
+        UUID memberId = memberService.joinMember(member);
+        int memberIdLength = memberId.toString().length();
+
+        //then
+        assertThat(memberIdLength).isEqualTo(expectedLength);
+    }
 }
