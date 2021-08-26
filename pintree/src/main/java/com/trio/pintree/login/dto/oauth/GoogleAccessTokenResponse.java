@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class GoogleAccessTokenResponse implements AccessTokenResponse {
+
     @JsonProperty("access_token")
     private String accessToken;
 
@@ -20,4 +21,5 @@ public class GoogleAccessTokenResponse implements AccessTokenResponse {
 
     @JsonProperty("scope")
     private String scope;
+
 }

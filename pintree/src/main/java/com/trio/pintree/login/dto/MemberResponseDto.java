@@ -10,6 +10,7 @@ import java.util.UUID;
 @Getter
 @ToString
 public class MemberResponseDto {
+
     private final UUID uuid;
     private final String username;
     private final String nickname;
@@ -21,4 +22,5 @@ public class MemberResponseDto {
                 .nickname(member.getNickname())
                 .build();
     }
+
 }

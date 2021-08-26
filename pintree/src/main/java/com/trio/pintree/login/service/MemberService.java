@@ -23,4 +23,5 @@ public class MemberService {
         Member member = memberRepository.findById(memberId);
         return MemberResponseDto.fromEntity(member);
     }
+
 }

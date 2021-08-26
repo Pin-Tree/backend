@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class KaKaoAccessTokenResponse implements AccessTokenResponse {
+
     @JsonProperty("token_type")
     private String tokenType;
 
@@ -26,4 +27,5 @@ public class KaKaoAccessTokenResponse implements AccessTokenResponse {
 
     @JsonProperty("scope")
     private String scope;
+
 }

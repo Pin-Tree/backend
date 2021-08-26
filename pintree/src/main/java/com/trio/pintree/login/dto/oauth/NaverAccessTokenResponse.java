@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class NaverAccessTokenResponse implements AccessTokenResponse {
+
     @JsonProperty("access_token")
     private String accessToken;
 

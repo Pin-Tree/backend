@@ -1,6 +1,7 @@
 package com.trio.pintree.login.exception;
 
 public class JwtException extends RuntimeException {
+
     public JwtException() {
         super();
     }
@@ -16,5 +17,6 @@ public class JwtException extends RuntimeException {
     public JwtException(String message) {
         super(message);
     }
+
 }
 

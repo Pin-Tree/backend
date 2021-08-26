@@ -6,11 +6,13 @@ import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConstructorBinding
-@ConfigurationProperties(prefix = "oauth.kakao.client")
 @Getter
 @ToString
+@ConstructorBinding
 @RequiredArgsConstructor
+@ConfigurationProperties(prefix = "oauth.kakao.client")
 public class KaKaoClientProperties {
+
     private final String url;
+
 }
