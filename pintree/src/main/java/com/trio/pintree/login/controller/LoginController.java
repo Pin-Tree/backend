@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/login")
 public class LoginController {
+
     private final LoginService loginService;
 
     @GetMapping("/google")
@@ -48,4 +49,5 @@ public class LoginController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
     }
+
 }

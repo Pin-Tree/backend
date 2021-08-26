@@ -10,6 +10,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class OauthServiceFactory {
+
     private final Map<String, OauthService> oauthServiceMap;
 
     public OauthService getGoogleOauthService() {
@@ -23,4 +24,5 @@ public class OauthServiceFactory {
     public OauthService getNaverOauthService() {
         return oauthServiceMap.get("naverOauthService");
     }
+
 }

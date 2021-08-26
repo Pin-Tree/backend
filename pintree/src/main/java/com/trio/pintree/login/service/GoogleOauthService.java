@@ -62,4 +62,5 @@ public class GoogleOauthService implements OauthService {
     public Member getMemberFrom(AccessTokenResponse accessTokenResponse) {
         return null;
     }
+
 }

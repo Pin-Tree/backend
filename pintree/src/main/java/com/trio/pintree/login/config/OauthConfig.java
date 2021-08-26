@@ -19,5 +19,6 @@ public class OauthConfig implements WebMvcConfigurer {
         registry.addInterceptor(oauthInterceptor)
                 .addPathPatterns("/login/naver");
     }
+
 }
 

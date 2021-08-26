@@ -45,4 +45,5 @@ public class ClientController {
     public String kakaoRedirect() {
         return "redirect:" + kaKaoClientProperties.getUrl();
     }
+
 }

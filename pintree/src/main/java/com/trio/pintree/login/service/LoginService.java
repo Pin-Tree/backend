@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Getter
 @RequiredArgsConstructor
 public class LoginService {
+
     private final OauthServiceFactory oauthServiceFactory;
 
     public AccessTokenResponse issueGoogleAccessToken(String code) {
@@ -25,4 +26,5 @@ public class LoginService {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
         return naverOauthService.issueAccessToken(code, state);
     }
+
 }

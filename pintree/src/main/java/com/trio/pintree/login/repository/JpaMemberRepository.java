@@ -24,4 +24,5 @@ public class JpaMemberRepository implements MemberRepository {
     public Member findById(UUID memberId) {
         return entityManager.find(Member.class, memberId);
     }
+
 }
