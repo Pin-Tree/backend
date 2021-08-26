@@ -1,17 +1,21 @@
 package com.trio.pintree.login.properties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@Data
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "oauth.naver")
+@Getter
+@ToString
+@RequiredArgsConstructor
 public class NaverOauthProperties {
 
-    private String clientId;
-    private String clientSecret;
-    private String grantType;
-    private String accessTokenUrl;
+    private final String clientId;
+    private final String clientSecret;
+    private final String grantType;
+    private final String accessTokenUrl;
 
 }
