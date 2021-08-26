@@ -1,14 +1,14 @@
-package com.trio.pintree.login.dto;
+package com.trio.pintree.login.dto.oauth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class KaKaoAccessTokenResponse implements AccessTokenResponse{
+public class KaKaoAccessTokenResponse implements AccessTokenResponse {
     @JsonProperty("token_type")
     private String tokenType;
 

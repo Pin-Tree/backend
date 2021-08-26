@@ -1,6 +1,6 @@
 package com.trio.pintree.login.controller;
 
-import com.trio.pintree.login.dto.AccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.trio.pintree.login.dto;
+package com.trio.pintree.login.dto.oauth;
 
 public interface AccessTokenResponse {
 }

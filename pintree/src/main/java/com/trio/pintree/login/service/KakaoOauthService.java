@@ -2,8 +2,8 @@ package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.properties.KaKaoOauthProperties;
 import com.trio.pintree.login.domain.Member;
-import com.trio.pintree.login.dto.AccessTokenResponse;
-import com.trio.pintree.login.dto.KaKaoAccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.KaKaoAccessTokenResponse;
 import com.trio.pintree.login.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
