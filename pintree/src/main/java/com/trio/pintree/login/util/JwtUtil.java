@@ -17,24 +17,26 @@ public class JwtUtil {
 
     public static String createJwt(String uuid) throws Exception {
         try {
-            if (uuid == null || uuid.length() == 0) {
-                throw new Exception("JWT 생성 실패");
-            }
+            validateUUID(uuid);
 
-            Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
             return JWT.create()
                     .withIssuer(JWT_ISSUER)
                     .withClaim(UUID, uuid)
-                    .sign(algorithm);
+                    .sign(Algorithm.HMAC256(JWT_SECRET));
         } catch (JWTCreationException exception) {
             throw new JwtException("JWT 생성 실패");
         }
     }
 
+    private static void validateUUID(String uuid) throws Exception {
+        if (uuid == null || uuid.length() == 0) {
+            throw new Exception("JWT 생성 실패");
+        }
+    }
+
     public static String decodeJwt(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
-            JWTVerifier verifier = JWT.require(algorithm)
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                     .withIssuer(JWT_ISSUER)
                     .build();
             DecodedJWT jwt = verifier.verify(token);
