@@ -1,13 +1,14 @@
-package com.trio.pintree.login.dto;
+package com.trio.pintree.login.dto.oauth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
+@ToString
 public class NaverAccessTokenResponse implements AccessTokenResponse {
     @JsonProperty("access_token")
     private String accessToken;
