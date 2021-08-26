@@ -1,5 +1,6 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.properties.GoogleOauthProperties;
 import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
@@ -22,15 +23,13 @@ public class GoogleOauthService implements OauthService {
     private final GoogleOauthProperties googleOauthProperties;
 
     @Override
-    public AccessTokenResponse issueAccessToken(String... str) {
-        String code = str[0];
+    public AccessTokenResponse issueAccessToken(AuthRequest authRequest) {
+        String code = authRequest.getCode();
 
         GoogleAccessTokenRequest googleAccessTokenRequest = generateGoogleAccessTokenRequest(code);
-
         log.debug("googleAccessTokenRequest : {}", googleAccessTokenRequest);
 
         AccessTokenResponse googleAccessTokenResponse = sendAccessTokenRequest(googleAccessTokenRequest);
-
         log.debug("googleAccessTokenResponse : {}", googleAccessTokenResponse);
 
         return googleAccessTokenResponse;

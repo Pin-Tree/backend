@@ -1,5 +1,6 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +13,18 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    public AccessTokenResponse issueGoogleAccessToken(String code) {
+    public AccessTokenResponse issueGoogleAccessToken(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
-        return googleOauthService.issueAccessToken(code);
+        return googleOauthService.issueAccessToken(authRequest);
     }
-
-    public AccessTokenResponse issueKakaoAccessToken(String code) {
+    public AccessTokenResponse issueKakaoAccessToken(AuthRequest authRequest) {
         OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
-        return kakaoOauthService.issueAccessToken(code);
+        return kakaoOauthService.issueAccessToken(authRequest);
     }
 
-    public AccessTokenResponse issueNaverAccessToken(String code, String state) {
+    public AccessTokenResponse issueNaverAccessToken(AuthRequest authRequest) {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
-        return naverOauthService.issueAccessToken(code, state);
+        return naverOauthService.issueAccessToken(authRequest);
     }
 
 }
