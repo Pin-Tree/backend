@@ -14,16 +14,15 @@ import java.util.Map;
 public class OauthServiceFactory {
     private final Map<String, OauthService> oauthServiceMap;
 
-    public AccessTokenResponse dispatchGoogleAccessTokenRequest(String code) {
-        return oauthServiceMap.get("googleOauthService")
-                .issueAccessToken(code);
+    public OauthService getGoogleOauthService() {
+        return oauthServiceMap.get("googleOauthService");
     }
 
-    public AccessTokenResponse dispatchKakaoAccessTokenRequest(String code) {
-        return oauthServiceMap.get("kakaoOauthService").issueAccessToken(code);
+    public OauthService getKakaoOauthService() {
+        return oauthServiceMap.get("kakaoOauthService");
     }
 
-    public AccessTokenResponse dispatchNaverAccessTokenRequest(String code, String state) {
-        return oauthServiceMap.get("naverOauthService").issueAccessToken(code, state);
+    public OauthService getNaverOauthService() {
+        return oauthServiceMap.get("naverOauthService");
     }
 }
