@@ -12,14 +12,17 @@ public class LoginService {
     private final OauthServiceFactory oauthServiceFactory;
 
     public AccessTokenResponse issueGoogleAccessToken(String code) {
-        return oauthServiceFactory.dispatchGoogleAccessTokenRequest(code);
+        OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
+        return googleOauthService.issueAccessToken(code);
     }
 
     public AccessTokenResponse issueKakaoAccessToken(String code) {
-        return oauthServiceFactory.dispatchKakaoAccessTokenRequest(code);
+        OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
+        return kakaoOauthService.issueAccessToken(code);
     }
 
     public AccessTokenResponse issueNaverAccessToken(String code, String state) {
-        return oauthServiceFactory.dispatchNaverAccessTokenRequest(code, state);
+        OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
+        return naverOauthService.issueAccessToken(code, state);
     }
 }
