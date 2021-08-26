@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConstructorBinding
-@ConfigurationProperties(prefix = "oauth.naver")
+@ConfigurationProperties(prefix = "oauth.naver.client")
 @Getter
 @ToString
 @RequiredArgsConstructor
@@ -15,5 +15,4 @@ public class NaverClientProperties {
     private final String clientId;
     private final String responseType;
     private final String redirectUri;
-
 }
