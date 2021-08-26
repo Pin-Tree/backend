@@ -3,7 +3,6 @@ package com.trio.pintree.login.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -24,15 +22,17 @@ public class Member {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)", name = "member_id")
     private UUID id;
-    private String username;
+    private String email;
     private String nickname;
+    private String profileUrl;
 
-    private Member(String username, String nickname) {
-        this.username = username;
+    private Member(String email, String nickname, String profileUrl) {
+        this.email = email;
         this.nickname = nickname;
+        this.profileUrl = profileUrl;
     }
 
-    public static Member create(String username, String nickname) {
-        return new Member(username, nickname);
+    public static Member create(String email, String nickname, String profileUrl) {
+        return new Member(email, nickname, profileUrl);
     }
 }

@@ -17,7 +17,7 @@ public class MemberResponseDto {
     public static MemberResponseDto fromEntity(Member member) {
         return MemberResponseDto.builder()
                 .uuid(member.getId())
-                .username(member.getUsername())
+                .username(member.getEmail())
                 .nickname(member.getNickname())
                 .build();
     }
