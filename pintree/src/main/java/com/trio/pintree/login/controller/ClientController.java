@@ -1,5 +1,7 @@
 package com.trio.pintree.login.controller;
 
+import com.trio.pintree.login.properties.KaKaoClientProperties;
+import com.trio.pintree.login.properties.NaverClientProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,36 +13,36 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/auth/social/redirect")
 public class ClientController {
 
-    private final String clientId;
-    private final String responseType;
-    private final String redirectUri;
+    private final NaverClientProperties naverClientProperties;
+    private final KaKaoClientProperties kaKaoClientProperties;
 
-    public ClientController(@Value("${oauth.naver.clientId}") String clientId,
-                            @Value("${oauth.naver.responseType}") String responseType,
-                            @Value("${oauth.naver.redirectionUri}") String redirectUri) throws NoSuchAlgorithmException {
-
-        this.clientId = clientId;
-        this.responseType = responseType;
-        this.redirectUri = redirectUri;
+    public ClientController(NaverClientProperties naverClientProperties, KaKaoClientProperties kaKaoClientProperties) {
+        this.naverClientProperties = naverClientProperties;
+        this.kaKaoClientProperties = kaKaoClientProperties;
     }
 
     @GetMapping("/naver")
     public String naverLogin(HttpSession session) {
         final String state = (String) session.getAttribute("state");
 
-        log.debug("Client Id : {}", clientId);
-        log.debug("Response Type : {}", responseType);
-        log.debug("Redirect URI: {}", redirectUri);
+        log.debug("Client Id : {}", naverClientProperties.getClientId());
+        log.debug("Response Type : {}", naverClientProperties.getResponseType());
+        log.debug("Redirect URI: {}", naverClientProperties.getRedirectUri());
         log.debug("State : {}", state);
 
         return new StringBuilder("redirect:https://nid.naver.com/oauth2.0/authorize?")
-                .append("client_id=").append(clientId)
-                .append("&response_type=").append(responseType)
-                .append("&redirect_uri=").append(redirectUri)
+                .append("client_id=").append(naverClientProperties.getClientId())
+                .append("&response_type=").append(naverClientProperties.getResponseType())
+                .append("&redirect_uri=").append(naverClientProperties.getRedirectUri())
                 .append("&state=").append(state)
                 .toString();
+    }
+
+    @GetMapping("/kakao")
+    public String kakaoRedirect() {
+        return "redirect:" + kaKaoClientProperties.getUrl();
     }
 }
