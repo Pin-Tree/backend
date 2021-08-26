@@ -1,5 +1,6 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.properties.KaKaoOauthProperties;
 import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
@@ -23,15 +24,13 @@ public class KakaoOauthService implements OauthService {
     private final KaKaoOauthProperties kaKaoOauthProperties;
 
     @Override
-    public KaKaoAccessTokenResponse issueAccessToken(String... str) {
-        final String code = str[0];
+    public AccessTokenResponse issueAccessToken(AuthRequest authRequest) {
+        final String code = authRequest.getCode();
 
         MultiValueMap<String, String> kakaoAccessTokenRequest = generateKakaoAccessTokenRequest(code);
-
         log.debug("kakaoAccessTokenRequest : {}", kakaoAccessTokenRequest);
 
         KaKaoAccessTokenResponse kaKaoAccessTokenResponse = sendRequestForAccessToken(kakaoAccessTokenRequest);
-
         log.debug("kaKaoAccessTokenResponse : {}", kaKaoAccessTokenResponse);
 
         return kaKaoAccessTokenResponse;

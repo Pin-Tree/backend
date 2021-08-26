@@ -1,5 +1,6 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.properties.NaverOauthProperties;
 import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
@@ -16,14 +17,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class NaverOauthService implements OauthService {
 
-    private final NaverOauthProperties oauthProperties;
     private final MemberRepository memberRepository;
     private final WebClient webClient;
+    private final NaverOauthProperties oauthProperties;
 
     @Override
-    public AccessTokenResponse issueAccessToken(String... str) {
-        String code = str[0];
-        String state = str[1];
+    public AccessTokenResponse issueAccessToken(AuthRequest authRequest) {
+        String code = authRequest.getCode();
+        String state = authRequest.getCode();
 
         String uri = getAsUriParams(code, state);
 
@@ -34,11 +35,7 @@ public class NaverOauthService implements OauthService {
                 .bodyToMono(NaverAccessTokenResponse.class)
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
-    }
 
-    @Override
-    public Member getMemberFrom(AccessTokenResponse accessTokenResponse) {
-        return null;
     }
 
     private String getAsUriParams(String code, String state){
@@ -51,6 +48,11 @@ public class NaverOauthService implements OauthService {
                 .build(false);
 
         return builder.toString();
+    }
+
+    @Override
+    public Member getMemberFrom(AccessTokenResponse accessTokenResponse) {
+        return null;
     }
 
 }
