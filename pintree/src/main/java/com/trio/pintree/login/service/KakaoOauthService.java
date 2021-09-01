@@ -3,6 +3,7 @@ package com.trio.pintree.login.service;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.KaKaoAccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.KaKaoUserProfile;
 import com.trio.pintree.login.dto.oauth.UserProfile;
 import com.trio.pintree.login.properties.KaKaoOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
@@ -62,7 +63,21 @@ public class KakaoOauthService implements OauthService {
 
     @Override
     public UserProfile getMemberFrom(AccessTokenResponse accessTokenResponse) {
-        return null;
+        // Request Body 오브젝트 생성
+        MultiValueMap<String, String> bodies = new LinkedMultiValueMap<>();
+
+        //TODO. 멀티밸류인데 왜 따로따로 add 해서 하는건 파싱을 정상적으로 못하는지 아직 잘모르겠음. 다음에 트러블슈팅 해보자!
+        bodies.add("property_keys", "[\"properties.nickname\", \"kakao_account.email\"]");
+
+        return webClient.post()
+                .uri(kaKaoOauthProperties.getUserInfo())
+                .header("Authorization", "Bearer " + accessTokenResponse.getAccessToken())
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .bodyValue(bodies)
+                .retrieve()
+                .bodyToMono(KaKaoUserProfile.class)
+                .blockOptional()
+                .orElseThrow(RuntimeException::new);
     }
 
 }
