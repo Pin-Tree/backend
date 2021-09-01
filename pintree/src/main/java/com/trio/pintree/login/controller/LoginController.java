@@ -2,12 +2,16 @@ package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
+import com.trio.pintree.login.service.AuthService;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final LoginService loginService;
+    private final AuthService authService;
 
     @GetMapping("/google")
     @ResponseStatus(HttpStatus.OK)
