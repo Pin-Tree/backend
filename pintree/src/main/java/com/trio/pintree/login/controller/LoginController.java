@@ -25,35 +25,35 @@ public class LoginController {
 
     @GetMapping("/google")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserProfile> issueGoogleAccessToken(String code) {
+    public ResponseEntity<UserProfile> getGoogleProfile(String code) {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", authRequest.getCode());
 
-        UserProfile userProfile = loginService.issueGoogleAccessToken(authRequest);
+        UserProfile userProfile = loginService.getGoogleProfile(authRequest);
         log.debug("userProfile : {}", userProfile);
 
         return ResponseEntity.status(HttpStatus.OK).body(userProfile);
     }
 
     @GetMapping("/kakao")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccessTokenResponse> issueKaKaoAccessToken(String code) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserProfile> getKaKaoProfile(String code) {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", code);
 
-        AccessTokenResponse accessTokenResponse = loginService.issueKakaoAccessToken(authRequest);
+        UserProfile userProfile = loginService.getKaKaoProfile(authRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userProfile);
     }
 
     @GetMapping("/naver")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccessTokenResponse> issueNaverAccessToken(String code, String state) {
+    public ResponseEntity<AccessTokenResponse> getNaverProfile(String code, String state) {
         AuthRequest authRequest = AuthRequest.create(code, state);
         log.debug("code: {}", code);
         log.debug("state: {}", state);
 
-        AccessTokenResponse accessTokenResponse = loginService.issueNaverAccessToken(authRequest);
+        AccessTokenResponse accessTokenResponse = loginService.getNaverProfile(authRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
     }

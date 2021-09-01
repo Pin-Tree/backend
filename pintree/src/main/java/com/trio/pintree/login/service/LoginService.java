@@ -15,17 +15,20 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    public UserProfile issueGoogleAccessToken(AuthRequest authRequest) {
+    //TODO. issueGoogleAccessToken 메서드명 네이밍 변경 필요함. (인터페이스도 찾아보자)
+    public UserProfile getGoogleProfile(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
         AccessTokenResponse accessTokenResponse = googleOauthService.issueAccessToken(authRequest);
         return googleOauthService.getMemberFrom(accessTokenResponse);
     }
-    public AccessTokenResponse issueKakaoAccessToken(AuthRequest authRequest) {
+
+    public UserProfile getKaKaoProfile(AuthRequest authRequest) {
         OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
-        return kakaoOauthService.issueAccessToken(authRequest);
+        AccessTokenResponse accessTokenResponse = kakaoOauthService.issueAccessToken(authRequest);
+        return kakaoOauthService.getMemberFrom(accessTokenResponse);
     }
 
-    public AccessTokenResponse issueNaverAccessToken(AuthRequest authRequest) {
+    public AccessTokenResponse getNaverProfile(AuthRequest authRequest) {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
         return naverOauthService.issueAccessToken(authRequest);
     }
