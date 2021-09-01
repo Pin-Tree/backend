@@ -1,10 +1,10 @@
 package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.dto.AuthRequest;
-import com.trio.pintree.login.properties.NaverOauthProperties;
-import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverAccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.UserProfile;
+import com.trio.pintree.login.properties.NaverOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -51,7 +51,7 @@ public class NaverOauthService implements OauthService {
     }
 
     @Override
-    public Member getMemberFrom(AccessTokenResponse accessTokenResponse) {
+    public UserProfile getMemberFrom(AccessTokenResponse accessTokenResponse) {
         return null;
     }
 
