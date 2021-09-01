@@ -1,14 +1,12 @@
 package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.dto.AuthRequest;
-import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
-import com.trio.pintree.login.dto.oauth.GoogleAccessTokenRequest;
-import com.trio.pintree.login.dto.oauth.GoogleAccessTokenResponse;
-import com.trio.pintree.login.dto.oauth.UserProfile;
+import com.trio.pintree.login.dto.oauth.*;
 import com.trio.pintree.login.properties.GoogleOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -59,7 +57,13 @@ public class GoogleOauthService implements OauthService {
 
     @Override
     public UserProfile getMemberFrom(AccessTokenResponse accessTokenResponse) {
-        return null;
+        return webClient.get()
+                .uri("https://www.googleapis.com/oauth2/v1/userinfo")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessTokenResponse.getAccessToken())
+                .retrieve()
+                .bodyToMono(GoogleUserProfileDto.class)
+                .blockOptional()
+                .orElseThrow(RuntimeException::new);
     }
 
 }

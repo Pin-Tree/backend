@@ -2,8 +2,10 @@ package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.UserProfile;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,9 +15,10 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    public AccessTokenResponse issueGoogleAccessToken(AuthRequest authRequest) {
+    public UserProfile issueGoogleAccessToken(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
-        return googleOauthService.issueAccessToken(authRequest);
+        AccessTokenResponse accessTokenResponse = googleOauthService.issueAccessToken(authRequest);
+        return googleOauthService.getMemberFrom(accessTokenResponse);
     }
     public AccessTokenResponse issueKakaoAccessToken(AuthRequest authRequest) {
         OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
