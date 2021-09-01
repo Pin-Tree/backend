@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+    <h1>네이버 로그인 Callback 페이지. 예쁜 로딩 화면이 되어야함</h1>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state');
+        fetch('http://localhost:8080/api/login/naver?code='+code+'&state='+state, {
+            method: 'GET'
+        }).then((response) => response.json()).then(({ access_token }) => {
+            localStorage.setItem('accessToken', access_token);
+        });
+    </script>
+</body>
+</html>
