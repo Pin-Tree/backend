@@ -2,6 +2,7 @@ package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.UserProfile;
 import com.trio.pintree.login.service.AuthService;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +25,14 @@ public class LoginController {
 
     @GetMapping("/google")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccessTokenResponse> issueGoogleAccessToken(String code) {
+    public ResponseEntity<UserProfile> issueGoogleAccessToken(String code) {
         AuthRequest authRequest = AuthRequest.create(code);
-
         log.debug("code: {}", authRequest.getCode());
 
-        AccessTokenResponse accessTokenResponse = loginService.issueGoogleAccessToken(authRequest);
+        UserProfile userProfile = loginService.issueGoogleAccessToken(authRequest);
+        log.debug("userProfile : {}", userProfile);
 
-        return ResponseEntity.status(HttpStatus.OK).body(accessTokenResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
     }
 
     @GetMapping("/kakao")
