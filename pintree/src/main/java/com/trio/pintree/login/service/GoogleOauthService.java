@@ -1,11 +1,11 @@
 package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.dto.AuthRequest;
-import com.trio.pintree.login.properties.GoogleOauthProperties;
-import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.GoogleAccessTokenRequest;
 import com.trio.pintree.login.dto.oauth.GoogleAccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.UserProfile;
+import com.trio.pintree.login.properties.GoogleOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class GoogleOauthService implements OauthService {
     }
 
     @Override
-    public Member getMemberFrom(AccessTokenResponse accessTokenResponse) {
+    public UserProfile getMemberFrom(AccessTokenResponse accessTokenResponse) {
         return null;
     }
 
