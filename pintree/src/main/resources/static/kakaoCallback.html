@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+    <h1>카카오 로그인 Callback 페이지. 예쁜 로딩 화면이 되어야함</h1>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        fetch('http://localhost:8080/api/login/kakao?code='+code, {
+            method: 'GET'
+        }).then((response) => response.json()).then(({ access_token }) => {
+            localStorage.setItem('accessToken', access_token);
+        });
+    </script>
+</body>
+</html>
