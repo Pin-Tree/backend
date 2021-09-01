@@ -3,10 +3,13 @@ package com.trio.pintree.login.service;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverAccessTokenResponse;
+import com.trio.pintree.login.dto.oauth.NaverUserProfile;
 import com.trio.pintree.login.dto.oauth.UserProfile;
 import com.trio.pintree.login.properties.NaverOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NaverOauthService implements OauthService {
 
     private final MemberRepository memberRepository;
@@ -23,11 +27,15 @@ public class NaverOauthService implements OauthService {
 
     @Override
     public AccessTokenResponse issueAccessToken(AuthRequest authRequest) {
-        String code = authRequest.getCode();
-        String state = authRequest.getCode();
+        String uri = getAsUriParams(authRequest);
 
-        String uri = getAsUriParams(code, state);
+        AccessTokenResponse naverAccessTokenResponse = sendAccessTokenRequest(uri);
+        log.debug("naverAccessTokenResponse : {}", naverAccessTokenResponse);
 
+        return naverAccessTokenResponse;
+    }
+
+    private NaverAccessTokenResponse sendAccessTokenRequest(String uri) {
         return webClient.get()
                 .uri(uri)
                 .accept(MediaType.APPLICATION_JSON)
@@ -35,16 +43,15 @@ public class NaverOauthService implements OauthService {
                 .bodyToMono(NaverAccessTokenResponse.class)
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
-
     }
 
-    private String getAsUriParams(String code, String state){
+    private String getAsUriParams(AuthRequest authRequest){
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(oauthProperties.getAccessTokenUrl())
                 .queryParam("client_id", oauthProperties.getClientId())
                 .queryParam("client_secret", oauthProperties.getClientSecret())
                 .queryParam("grant_type", oauthProperties.getGrantType())
-                .queryParam("state", state)
-                .queryParam("code", code)
+                .queryParam("state", authRequest.getStatus())
+                .queryParam("code", authRequest.getCode())
                 .build(false);
 
         return builder.toString();
@@ -52,7 +59,15 @@ public class NaverOauthService implements OauthService {
 
     @Override
     public UserProfile getMemberFrom(AccessTokenResponse accessTokenResponse) {
-        return null;
+        return webClient.post()
+                .uri("https://openapi.naver.com/v1/nid/me")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessTokenResponse.getAccessToken())
+                .retrieve()
+                .bodyToMono(NaverUserProfile.class)
+                .blockOptional()
+                .orElseThrow(RuntimeException::new);
     }
 
 }

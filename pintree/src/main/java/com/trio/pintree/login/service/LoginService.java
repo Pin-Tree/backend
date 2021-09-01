@@ -15,7 +15,6 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    //TODO. issueGoogleAccessToken 메서드명 네이밍 변경 필요함. (인터페이스도 찾아보자)
     public UserProfile getGoogleProfile(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
         AccessTokenResponse accessTokenResponse = googleOauthService.issueAccessToken(authRequest);
@@ -28,9 +27,10 @@ public class LoginService {
         return kakaoOauthService.getMemberFrom(accessTokenResponse);
     }
 
-    public AccessTokenResponse getNaverProfile(AuthRequest authRequest) {
+    public UserProfile getNaverProfile(AuthRequest authRequest) {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
-        return naverOauthService.issueAccessToken(authRequest);
+        AccessTokenResponse accessTokenResponse = naverOauthService.issueAccessToken(authRequest);
+        return naverOauthService.getMemberFrom(accessTokenResponse);
     }
 
 }
