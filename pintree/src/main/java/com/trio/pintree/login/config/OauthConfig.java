@@ -17,7 +17,7 @@ public class OauthConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(oauthInterceptor)
-                .addPathPatterns("/login/naver");
+                .addPathPatterns("/auth/social/redirect/naver");
     }
 
 }

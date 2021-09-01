@@ -42,20 +42,22 @@ public class LoginController {
         log.debug("code: {}", code);
 
         UserProfile userProfile = loginService.getKaKaoProfile(authRequest);
+        log.debug("userProfile : {}", userProfile);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userProfile);
+        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
     }
 
     @GetMapping("/naver")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccessTokenResponse> getNaverProfile(String code, String state) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<UserProfile> getNaverProfile(String code, String state) {
         AuthRequest authRequest = AuthRequest.create(code, state);
         log.debug("code: {}", code);
         log.debug("state: {}", state);
 
-        AccessTokenResponse accessTokenResponse = loginService.getNaverProfile(authRequest);
+        UserProfile userProfile = loginService.getNaverProfile(authRequest);
+        log.debug("userProfile : {}", userProfile);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
     }
 
 }
