@@ -1,27 +1,29 @@
 package com.trio.pintree.login.service;
 
-import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.*;
 import com.trio.pintree.login.properties.GoogleOauthProperties;
 import com.trio.pintree.login.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Optional;
-
 @Service
-@RequiredArgsConstructor
 @Slf4j
-public class GoogleOauthService implements OauthService {
+public class GoogleOauthService extends OauthService {
 
-    private final MemberRepository memberRepository;
     private final WebClient webClient;
     private final GoogleOauthProperties googleOauthProperties;
+
+    public GoogleOauthService(MemberRepository memberRepository,
+                              WebClient webClient,
+                              GoogleOauthProperties googleOauthProperties) {
+        super(memberRepository);
+        this.webClient = webClient;
+        this.googleOauthProperties = googleOauthProperties;
+    }
 
     @Override
     public AccessTokenResponse issueAccessToken(AuthRequest authRequest) {
@@ -69,16 +71,16 @@ public class GoogleOauthService implements OauthService {
                 .orElseThrow(RuntimeException::new);
     }
 
-    @Override
-    public Member findMember(UserProfile userProfile) {
-        Optional<Member> member = memberRepository.findByEmail(userProfile.getEmail());
-
-        if (member.isPresent()) {
-            return member.get();
-        }
-
-        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
-        return memberRepository.save(newMember);
-    }
+//    @Override
+//    public Member findMember(UserProfile userProfile) {
+//        Optional<Member> member = memberRepository.findByEmail(userProfile.getEmail());
+//
+//        if (member.isPresent()) {
+//            return member.get();
+//        }
+//
+//        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
+//        return memberRepository.save(newMember);
+//    }
 
 }
