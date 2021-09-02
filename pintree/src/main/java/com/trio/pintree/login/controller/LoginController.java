@@ -1,8 +1,7 @@
 package com.trio.pintree.login.controller;
 
 import com.trio.pintree.login.dto.AuthRequest;
-import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
-import com.trio.pintree.login.dto.oauth.UserProfile;
+import com.trio.pintree.login.dto.JwtResponse;
 import com.trio.pintree.login.service.AuthService;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -25,39 +24,44 @@ public class LoginController {
 
     @GetMapping("/google")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserProfile> getGoogleProfile(String code) {
+    public ResponseEntity<JwtResponse> loginByGoogle(String code) {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", authRequest.getCode());
 
-        UserProfile userProfile = loginService.getGoogleProfile(authRequest);
-        log.debug("userProfile : {}", userProfile);
+        JwtResponse jwtResponse = loginService.loginByGoogleAuth(authRequest);
+        log.debug("jwtResponse : {}", jwtResponse);
 
-        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jwtResponse);
     }
 
     @GetMapping("/kakao")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserProfile> getKaKaoProfile(String code) {
+    public ResponseEntity<JwtResponse> loginByKakao(String code) {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", code);
 
-        UserProfile userProfile = loginService.getKaKaoProfile(authRequest);
-        log.debug("userProfile : {}", userProfile);
+        JwtResponse jwtResponse = loginService.loginByKakaoAuth(authRequest);
+        log.debug("jwtResponse : {}", jwtResponse);
 
-        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jwtResponse);
     }
 
     @GetMapping("/naver")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserProfile> getNaverProfile(String code, String state) {
+    public ResponseEntity<JwtResponse> loginByNaver(String code, String state) {
         AuthRequest authRequest = AuthRequest.create(code, state);
         log.debug("code: {}", code);
         log.debug("state: {}", state);
 
-        UserProfile userProfile = loginService.getNaverProfile(authRequest);
-        log.debug("userProfile : {}", userProfile);
+        JwtResponse jwtResponse = loginService.loginByNaverAuth(authRequest);
+        log.debug("jwtResponse : {}", jwtResponse);
 
-        return ResponseEntity.status(HttpStatus.OK).body(userProfile);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jwtResponse);
     }
-
 }

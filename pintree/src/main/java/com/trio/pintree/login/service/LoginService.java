@@ -6,9 +6,9 @@ import com.trio.pintree.login.dto.JwtResponse;
 import com.trio.pintree.login.dto.MemberResponseDto;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.UserProfile;
+import com.trio.pintree.login.util.JwtUtil;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,25 +18,22 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    public MemberResponseDto loginByGoogleAuth(AuthRequest authRequest) {
+    public JwtResponse loginByGoogleAuth(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
         UserProfile googleProfile = getGoogleProfile(authRequest);
-        Member member = googleOauthService.findMember(googleProfile);
-        return MemberResponseDto.fromEntity(member);
+        return getJwtResponse(googleOauthService, googleProfile);
     }
 
-    public MemberResponseDto loginByKakaoAuth(AuthRequest authRequest) {
+    public JwtResponse loginByKakaoAuth(AuthRequest authRequest) {
         OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
         UserProfile kakaoProfile = getKaKaoProfile(authRequest);
-        Member member = kakaoOauthService.findMember(kakaoProfile);
-        return MemberResponseDto.fromEntity(member);
+        return getJwtResponse(kakaoOauthService, kakaoProfile);
     }
 
-    public MemberResponseDto loginByNaverAuth(AuthRequest authRequest) {
+    public JwtResponse loginByNaverAuth(AuthRequest authRequest) {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
         UserProfile naverProfile = getNaverProfile(authRequest);
-        Member member = naverOauthService.findMember(naverProfile);
-        return MemberResponseDto.fromEntity(member);
+        return getJwtResponse(naverOauthService, naverProfile);
     }
 
 
@@ -56,6 +53,14 @@ public class LoginService {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
         AccessTokenResponse accessTokenResponse = naverOauthService.issueAccessToken(authRequest);
         return naverOauthService.getMemberFrom(accessTokenResponse);
+    }
+
+    private JwtResponse getJwtResponse(OauthService oauthService, UserProfile userProfile) {
+        Member member = oauthService.findMember(userProfile);
+        MemberResponseDto memberResponse = MemberResponseDto.fromEntity(member);
+
+        String jwt = JwtUtil.createJwt(member.getId().toString());
+        return JwtResponse.create(jwt, memberResponse);
     }
 
 }
