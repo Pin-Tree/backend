@@ -14,12 +14,14 @@ public class MemberResponseDto {
     private final UUID uuid;
     private final String email;
     private final String nickname;
+    private final String profile;
 
     public static MemberResponseDto fromEntity(Member member) {
         return MemberResponseDto.builder()
                 .uuid(member.getId())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
+                .profile(member.getProfileUrl())
                 .build();
     }
 
