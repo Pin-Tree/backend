@@ -1,5 +1,6 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.oauth.*;
 import com.trio.pintree.login.properties.GoogleOauthProperties;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -61,9 +64,21 @@ public class GoogleOauthService implements OauthService {
                 .uri("https://www.googleapis.com/oauth2/v1/userinfo")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessTokenResponse.getAccessToken())
                 .retrieve()
-                .bodyToMono(GoogleUserProfileDto.class)
+                .bodyToMono(GoogleUserProfile.class)
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public Member findMember(UserProfile userProfile) {
+        Optional<Member> member = memberRepository.findByEmail(userProfile.getEmail());
+
+        if (member.isPresent()) {
+            return member.get();
+        }
+
+        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
+        return memberRepository.save(newMember);
     }
 
 }

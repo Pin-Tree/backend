@@ -1,6 +1,8 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AuthRequest;
+import com.trio.pintree.login.dto.MemberResponseDto;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.KaKaoAccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.KaKaoUserProfile;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -79,6 +83,19 @@ public class KakaoOauthService implements OauthService {
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
     }
+
+    @Override
+    public Member findMember(UserProfile userProfile) {
+        Optional<Member> member = memberRepository.findByEmail(userProfile.getEmail());
+
+        if (member.isPresent()) {
+            return member.get();
+        }
+
+        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
+        return memberRepository.save(newMember);
+    }
+
 
 }
 

@@ -1,6 +1,8 @@
 package com.trio.pintree.login.service;
 
+import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AuthRequest;
+import com.trio.pintree.login.dto.MemberResponseDto;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverAccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverUserProfile;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +72,18 @@ public class NaverOauthService implements OauthService {
                 .bodyToMono(NaverUserProfile.class)
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public Member findMember(UserProfile userProfile) {
+        Optional<Member> member = memberRepository.findByEmail(userProfile.getEmail());
+
+        if (member.isPresent()) {
+            return member.get();
+        }
+
+        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
+        return memberRepository.save(newMember);
     }
 
 }

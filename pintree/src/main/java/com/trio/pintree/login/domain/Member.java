@@ -1,5 +1,6 @@
 package com.trio.pintree.login.domain;
 
+import com.trio.pintree.login.dto.oauth.UserProfile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
