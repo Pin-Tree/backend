@@ -15,7 +15,7 @@ public class JwtUtil {
     private static final String JWT_ISSUER = "jwtIssuer";
     private static final String UUID = "uuid";
 
-    public static String createJwt(String uuid) throws Exception {
+    public static String createJwt(String uuid) {
         try {
             validateUUID(uuid);
 
@@ -28,9 +28,9 @@ public class JwtUtil {
         }
     }
 
-    private static void validateUUID(String uuid) throws Exception {
+    private static void validateUUID(String uuid) {
         if (uuid == null || uuid.length() == 0) {
-            throw new Exception("JWT 생성 실패");
+            throw new JwtException("유효한 UUID가 아닙니다");
         }
     }
 
