@@ -2,7 +2,6 @@ package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.domain.Member;
 import com.trio.pintree.login.dto.AuthRequest;
-import com.trio.pintree.login.dto.MemberResponseDto;
 import com.trio.pintree.login.dto.oauth.AccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverAccessTokenResponse;
 import com.trio.pintree.login.dto.oauth.NaverUserProfile;
@@ -82,7 +81,7 @@ public class NaverOauthService implements OauthService {
             return member.get();
         }
 
-        Member newMember = Member.create(userProfile.getEmail(), null, userProfile.getNickname());
+        Member newMember = Member.create(userProfile.getEmail(), userProfile.getNickname(), null);
         return memberRepository.save(newMember);
     }
 
