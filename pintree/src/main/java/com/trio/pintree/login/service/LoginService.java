@@ -20,39 +20,25 @@ public class LoginService {
 
     public JwtResponse loginByGoogleAuth(AuthRequest authRequest) {
         OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
-        UserProfile googleProfile = getGoogleProfile(authRequest);
+        UserProfile googleProfile = getUserProfile(googleOauthService, authRequest);
         return getJwtResponse(googleOauthService, googleProfile);
     }
 
     public JwtResponse loginByKakaoAuth(AuthRequest authRequest) {
         OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
-        UserProfile kakaoProfile = getKaKaoProfile(authRequest);
+        UserProfile kakaoProfile = getUserProfile(kakaoOauthService, authRequest);
         return getJwtResponse(kakaoOauthService, kakaoProfile);
     }
 
     public JwtResponse loginByNaverAuth(AuthRequest authRequest) {
         OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
-        UserProfile naverProfile = getNaverProfile(authRequest);
+        UserProfile naverProfile = getUserProfile(naverOauthService, authRequest);
         return getJwtResponse(naverOauthService, naverProfile);
     }
 
-
-    public UserProfile getGoogleProfile(AuthRequest authRequest) {
-        OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
-        AccessTokenResponse accessTokenResponse = googleOauthService.issueAccessToken(authRequest);
-        return googleOauthService.getMemberFrom(accessTokenResponse);
-    }
-
-    public UserProfile getKaKaoProfile(AuthRequest authRequest) {
-        OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
-        AccessTokenResponse accessTokenResponse = kakaoOauthService.issueAccessToken(authRequest);
-        return kakaoOauthService.getMemberFrom(accessTokenResponse);
-    }
-
-    public UserProfile getNaverProfile(AuthRequest authRequest) {
-        OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
-        AccessTokenResponse accessTokenResponse = naverOauthService.issueAccessToken(authRequest);
-        return naverOauthService.getMemberFrom(accessTokenResponse);
+    private UserProfile getUserProfile(OauthService oauthService, AuthRequest authRequest){
+        AccessTokenResponse accessTokenResponse = oauthService.issueAccessToken(authRequest);
+        return oauthService.getMemberFrom(accessTokenResponse);
     }
 
     private JwtResponse getJwtResponse(OauthService oauthService, UserProfile userProfile) {
