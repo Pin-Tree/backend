@@ -12,13 +12,13 @@ import java.util.UUID;
 public class MemberResponseDto {
 
     private final UUID uuid;
-    private final String username;
+    private final String email;
     private final String nickname;
 
     public static MemberResponseDto fromEntity(Member member) {
         return MemberResponseDto.builder()
                 .uuid(member.getId())
-                .username(member.getEmail())
+                .email(member.getEmail())
                 .nickname(member.getNickname())
                 .build();
     }

@@ -2,9 +2,11 @@ package com.trio.pintree.login.dto.oauth;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Getter
 @ToString
 @NoArgsConstructor
 public class KaKaoAccount {

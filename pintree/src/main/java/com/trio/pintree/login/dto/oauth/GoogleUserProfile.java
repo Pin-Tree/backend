@@ -6,9 +6,13 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class GoogleUserProfileDto implements UserProfile {
+public class GoogleUserProfile implements UserProfile {
 
     private String email;
     private String picture;
 
+    @Override
+    public String getNickname() {
+        return null;
+    }
 }

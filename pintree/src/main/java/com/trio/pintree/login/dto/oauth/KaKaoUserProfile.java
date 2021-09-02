@@ -2,9 +2,11 @@ package com.trio.pintree.login.dto.oauth;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Getter
 @ToString
 @NoArgsConstructor
 public class KaKaoUserProfile implements UserProfile{
@@ -12,7 +14,7 @@ public class KaKaoUserProfile implements UserProfile{
     private Long id;
     private String connectedAt;
     private KaKaoProperties properties;
-    private KaKaoAccount kaKaoAccount;
+    private KaKaoAccount kakaoAccount;
 
     @JsonGetter("id")
     public Long getId() {
@@ -45,13 +47,22 @@ public class KaKaoUserProfile implements UserProfile{
     }
 
     @JsonGetter("kakao_account")
-    public KaKaoAccount getKaKaoAccount() {
-        return kaKaoAccount;
+    public KaKaoAccount getKakaoAccount() {
+        return kakaoAccount;
     }
 
     @JsonSetter("kakao_account")
-    public void setKaKaoAccount(KaKaoAccount kaKaoAccount) {
-        this.kaKaoAccount = kaKaoAccount;
+    public void setKakaoAccount(KaKaoAccount kakaoAccount) {
+        this.kakaoAccount = kakaoAccount;
     }
 
+    @Override
+    public String getEmail() {
+        return kakaoAccount.getEmail();
+    }
+
+    @Override
+    public String getNickname() {
+        return properties.getNickName();
+    }
 }

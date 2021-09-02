@@ -20,7 +20,8 @@ public class MemberService {
     }
 
     public MemberResponseDto findById(UUID memberId) {
-        Member member = memberRepository.findById(memberId);
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(RuntimeException::new);
         return MemberResponseDto.fromEntity(member);
     }
 
