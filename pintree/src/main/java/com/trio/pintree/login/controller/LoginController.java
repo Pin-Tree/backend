@@ -1,5 +1,6 @@
 package com.trio.pintree.login.controller;
 
+import com.trio.pintree.login.domain.SocialPortal;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.JwtResponse;
 import com.trio.pintree.login.service.AuthService;
@@ -28,7 +29,7 @@ public class LoginController {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", authRequest.getCode());
 
-        JwtResponse jwtResponse = loginService.loginByGoogleAuth(authRequest);
+        JwtResponse jwtResponse = loginService.loginBySocialService(authRequest, SocialPortal.GOOGLE);
         log.debug("jwtResponse : {}", jwtResponse);
 
         return ResponseEntity
@@ -42,7 +43,7 @@ public class LoginController {
         AuthRequest authRequest = AuthRequest.create(code);
         log.debug("code: {}", code);
 
-        JwtResponse jwtResponse = loginService.loginByKakaoAuth(authRequest);
+        JwtResponse jwtResponse = loginService.loginBySocialService(authRequest, SocialPortal.KAKAO);
         log.debug("jwtResponse : {}", jwtResponse);
 
         return ResponseEntity
@@ -57,7 +58,7 @@ public class LoginController {
         log.debug("code: {}", code);
         log.debug("state: {}", state);
 
-        JwtResponse jwtResponse = loginService.loginByNaverAuth(authRequest);
+        JwtResponse jwtResponse = loginService.loginBySocialService(authRequest, SocialPortal.NAVER);
         log.debug("jwtResponse : {}", jwtResponse);
 
         return ResponseEntity

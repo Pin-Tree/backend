@@ -1,6 +1,7 @@
 package com.trio.pintree.login.service;
 
 import com.trio.pintree.login.domain.Member;
+import com.trio.pintree.login.domain.SocialPortal;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.JwtResponse;
 import com.trio.pintree.login.dto.MemberResponseDto;
@@ -18,30 +19,18 @@ public class LoginService {
 
     private final OauthServiceFactory oauthServiceFactory;
 
-    public JwtResponse loginByGoogleAuth(AuthRequest authRequest) {
-        OauthService googleOauthService = oauthServiceFactory.getGoogleOauthService();
-        UserProfile googleProfile = getUserProfile(googleOauthService, authRequest);
-        return getJwtResponse(googleOauthService, googleProfile);
+    public JwtResponse loginBySocialService(AuthRequest authRequest, SocialPortal social) {
+        OauthService oauthService = oauthServiceFactory.getOauthService(social.getSocialServiceName());
+        UserProfile profile = getUserProfile(oauthService, authRequest);
+        return getJwtResponse(oauthService, profile);
     }
 
-    public JwtResponse loginByKakaoAuth(AuthRequest authRequest) {
-        OauthService kakaoOauthService = oauthServiceFactory.getKakaoOauthService();
-        UserProfile kakaoProfile = getUserProfile(kakaoOauthService, authRequest);
-        return getJwtResponse(kakaoOauthService, kakaoProfile);
-    }
-
-    public JwtResponse loginByNaverAuth(AuthRequest authRequest) {
-        OauthService naverOauthService = oauthServiceFactory.getNaverOauthService();
-        UserProfile naverProfile = getUserProfile(naverOauthService, authRequest);
-        return getJwtResponse(naverOauthService, naverProfile);
-    }
-
-    private UserProfile getUserProfile(OauthService oauthService, AuthRequest authRequest){
+    private <T extends OauthService> UserProfile getUserProfile(T oauthService, AuthRequest authRequest){
         AccessTokenResponse accessTokenResponse = oauthService.issueAccessToken(authRequest);
         return oauthService.getMemberFrom(accessTokenResponse);
     }
 
-    private JwtResponse getJwtResponse(OauthService oauthService, UserProfile userProfile) {
+    private <T extends OauthService> JwtResponse getJwtResponse(T oauthService, UserProfile userProfile) {
         Member member = oauthService.findMember(userProfile);
         MemberResponseDto memberResponse = MemberResponseDto.fromEntity(member);
 

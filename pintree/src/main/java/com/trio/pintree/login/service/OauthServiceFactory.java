@@ -25,4 +25,7 @@ public class OauthServiceFactory {
         return oauthServiceMap.get("naverOauthService");
     }
 
+    public OauthService getOauthService(String serviceName) {
+        return oauthServiceMap.get(serviceName);
+    }
 }
