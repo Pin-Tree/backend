@@ -23,7 +23,11 @@ public class RoadMap {
     @Column(name = "ROADMAP_TITLE")
     private String title;
 
-    public RoadMap(String title) {
+    private RoadMap(String title) {
         this.title = title;
+    }
+
+    public static RoadMap create(String title) {
+        return new RoadMap(title);
     }
 }
