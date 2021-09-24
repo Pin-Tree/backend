@@ -16,7 +16,7 @@ public class ParentChild {
     @Column(name = "parent_child_id")
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "parent_id")
     private Node parent;
 

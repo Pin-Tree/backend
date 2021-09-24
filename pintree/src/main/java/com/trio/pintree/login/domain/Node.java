@@ -33,8 +33,12 @@ public class Node {
     @Column(name = "is_official")
     private boolean isOfficial;
 
-    @OneToMany(mappedBy = "parent")
-    private List<Children> parent = new ArrayList<>();
+    @OneToOne(mappedBy = "parent")
+    private ParentChild parent;
+
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+    private List<ParentChild> children = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "child")
     private List<Children> children = new ArrayList<>();
