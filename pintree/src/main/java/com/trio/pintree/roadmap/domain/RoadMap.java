@@ -9,17 +9,21 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
-@Table(name = "ROADMAP")
+@Table(name = "roadmap")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoadMap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROADMAP_ID")
+    @Column(name = "roadmap_id")
     private Long id;
 
     @NotBlank
-    @Column(name = "ROADMAP_TITLE")
+    @Column(name = "roadmap_title")
     private String title;
+
+    private double progress = 0.0;
+
+    private String shareUrl = "";
 
     private RoadMap(String title) {
         this.title = title;
