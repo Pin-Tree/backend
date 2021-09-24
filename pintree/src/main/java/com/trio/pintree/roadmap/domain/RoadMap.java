@@ -4,18 +4,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
+@Table(name = "ROADMAP")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoadMap {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROADMAP_ID")
     private Long id;
 
