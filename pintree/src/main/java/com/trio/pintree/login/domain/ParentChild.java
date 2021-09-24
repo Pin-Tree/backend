@@ -9,10 +9,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Children {
+public class ParentChild {
 
-    @Id @GeneratedValue
-    @Column(name = "children_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "parent_child_id")
     private Long id;
 
     @ManyToOne
