@@ -76,4 +76,45 @@ class RoadMapTest {
         //then
         assertThat(violations.size()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("로드맵의 공개여부 기본값은 비공개이다.")
+    void itShouldSetDefaultToPrivate() {
+        //given
+        String title = "제목1";
+
+        //when
+        RoadMap roadMap = RoadMap.from(title);
+
+        //then
+        assertThat(roadMap.isPublic()).isFalse();
+    }
+
+    @Test
+    @DisplayName("로드맵은 공개여부를 공개로 설정할 수 있다.")
+    void itShouldSetPublic() {
+        //given
+        String title = "제목1";
+
+        //when
+        RoadMap roadMap = RoadMap.from(title);
+        roadMap.setPublic();
+
+        //then
+        assertThat(roadMap.isPublic()).isTrue();
+    }
+
+    @Test
+    @DisplayName("로드맵은 공개여부를 비공개로 설정할 수 있다.")
+    void itShouldSetPrivate() {
+        //given
+        String title = "제목1";
+
+        //when
+        RoadMap roadMap = RoadMap.from(title);
+        roadMap.setPrivate();
+
+        //then
+        assertThat(roadMap.isPublic()).isFalse();
+    }
 }

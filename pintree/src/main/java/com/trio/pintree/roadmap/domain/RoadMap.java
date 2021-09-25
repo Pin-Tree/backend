@@ -21,6 +21,9 @@ public class RoadMap {
     @Column(name = "roadmap_title")
     private String title;
 
+    @Column(name = "is_public")
+    private Boolean isPublic = false;
+
     private double progress = 0.0;
 
     private String shareUrl = "";
@@ -31,5 +34,17 @@ public class RoadMap {
 
     public static RoadMap from(String title) {
         return new RoadMap(title);
+    }
+
+    public void setPublic() {
+        this.isPublic = true;
+    }
+
+    public void setPrivate() {
+        this.isPublic = false;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
     }
 }
