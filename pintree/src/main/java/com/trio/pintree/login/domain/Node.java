@@ -20,6 +20,9 @@ public class Node {
     @Column(name = "node_id")
     private Long id;
 
+    @Column(name = "node_name")
+    private String name;
+
     @Column(name = "is_main")
     private boolean isMain = false;
 
@@ -35,32 +38,32 @@ public class Node {
     @Column(name = "node_memo")
     private String memo;
 
-
     @OneToOne(mappedBy = "child")
     private ParentChild parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<ParentChild> children = new ArrayList<>();
 
-    private Node(boolean isMain, boolean isUp, long index, boolean isOfficial) {
-        this.isMain = isMain;
-        this.isUp = isUp;
+    private Node(String name, long index, boolean isMain, boolean isOfficial, boolean isUp) {
+        this.name = name;
         this.index = index;
+        this.isMain = isMain;
         this.isOfficial = isOfficial;
+        this.isUp = isUp;
     }
 
-    public static Node createMainNode(long index, boolean isOfficial) {
+    public static Node createMainNode(String name, long index, boolean isOfficial) {
         final boolean isMain = true;
         final boolean isUp = true;
 
-        return new Node(isMain, isUp, index, isOfficial);
+        return new Node(name, index, isMain, isOfficial, isUp);
     }
 
-    public static Node createNonMainNode(Node parent, boolean isUp, long index, boolean isOfficial) {
+    public static Node createNonMainNode(String name, long index, boolean isOfficial, boolean isUp, Node parent) {
         final boolean isMain = false;
+        Node node = new Node(name, index, isOfficial, isMain, isUp);
 
-        Node node = new Node(isMain, isUp, index, isOfficial);
-        ParentChild parentChild = ParentChild.create(parent, node);
+        ParentChild parentChild = ParentChild.of(parent, node);
         parent.addChild(parentChild);
         node.addParent(parentChild);
         return node;
