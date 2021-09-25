@@ -21,10 +21,13 @@ public class Node {
     private Long id;
 
     @Column(name = "is_main")
-    private boolean isMain;
+    private boolean isMain = false;
 
     @Column(name = "is_up")
-    private boolean isUp;
+    private boolean isUp = true;
+
+    @Column(name = "is_official")
+    private boolean isOfficial = false;
 
     @Column(name = "node_index")
     private long index;
@@ -32,8 +35,6 @@ public class Node {
     @Column(name = "node_memo")
     private String memo;
 
-    @Column(name = "is_official")
-    private boolean isOfficial;
 
     @OneToOne(mappedBy = "child")
     private ParentChild parent;
@@ -48,12 +49,17 @@ public class Node {
         this.isOfficial = isOfficial;
     }
 
-    public static Node createMainNode(boolean isUp, long index, boolean isOfficial) {
-        return new Node(false, isUp, index, isOfficial);
+    public static Node createMainNode(long index, boolean isOfficial) {
+        final boolean isMain = true;
+        final boolean isUp = true;
+
+        return new Node(isMain, isUp, index, isOfficial);
     }
 
     public static Node createNonMainNode(Node parent, boolean isUp, long index, boolean isOfficial) {
-        Node node = new Node(false, isUp, index, isOfficial);
+        final boolean isMain = false;
+
+        Node node = new Node(isMain, isUp, index, isOfficial);
         ParentChild parentChild = ParentChild.create(parent, node);
         parent.addChild(parentChild);
         node.addParent(parentChild);
