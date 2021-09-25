@@ -1,11 +1,12 @@
 package com.trio.pintree.login.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trio.pintree.login.domain.Node;
-import com.trio.pintree.login.dto.node.CreateCustomNodeRequest;
-import com.trio.pintree.login.dto.node.CreateNodeResponse;
-import com.trio.pintree.login.dto.node.CreateOfficialNodeRequest;
-import com.trio.pintree.login.service.NodeService;
+import com.trio.pintree.node.controller.NodeController;
+import com.trio.pintree.node.domain.Node;
+import com.trio.pintree.node.dto.CreateCustomNodeRequest;
+import com.trio.pintree.node.dto.CreateNodeResponse;
+import com.trio.pintree.node.dto.CreateOfficialNodeRequest;
+import com.trio.pintree.node.service.NodeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
