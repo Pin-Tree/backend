@@ -1,9 +1,9 @@
-package com.trio.pintree.login.controller;
+package com.trio.pintree.node.controller;
 
-import com.trio.pintree.login.dto.node.CreateCustomNodeRequest;
-import com.trio.pintree.login.dto.node.CreateNodeResponse;
-import com.trio.pintree.login.dto.node.CreateOfficialNodeRequest;
-import com.trio.pintree.login.service.NodeService;
+import com.trio.pintree.node.dto.CreateCustomNodeRequest;
+import com.trio.pintree.node.dto.CreateNodeResponse;
+import com.trio.pintree.node.dto.CreateOfficialNodeRequest;
+import com.trio.pintree.node.service.NodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

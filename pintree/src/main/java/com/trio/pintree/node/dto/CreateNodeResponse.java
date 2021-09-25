@@ -1,7 +1,7 @@
-package com.trio.pintree.login.dto.node;
+package com.trio.pintree.node.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.trio.pintree.login.domain.Node;
+import com.trio.pintree.node.domain.Node;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
