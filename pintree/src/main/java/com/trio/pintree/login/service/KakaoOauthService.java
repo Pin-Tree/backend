@@ -22,9 +22,10 @@ public class KakaoOauthService extends OauthService {
     private final KaKaoOauthProperties kaKaoOauthProperties;
 
     public KakaoOauthService(MemberRepository memberRepository,
+                             SessionService sessionService,
                              WebClient webClient,
                              KaKaoOauthProperties kaKaoOauthProperties) {
-        super(memberRepository);
+        super(memberRepository, sessionService);
         this.webClient = webClient;
         this.kaKaoOauthProperties = kaKaoOauthProperties;
     }

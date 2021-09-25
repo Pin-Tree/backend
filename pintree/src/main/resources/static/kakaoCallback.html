@@ -8,11 +8,15 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
+
         fetch('http://localhost:8080/api/login/kakao?code='+code, {
             method: 'GET'
-        }).then((response) => response.json()).then(({ access_token }) => {
-            localStorage.setItem('accessToken', access_token);
+        }).then((response) => response.json()).then(({ jwt, member }) => {
+            localStorage.setItem('jwt', jwt);
+            localStorage.setItem('nickname', member.nickname);
+            localStorage.setItem('profile', member.profile);
         });
+
     </script>
 </body>
 </html>

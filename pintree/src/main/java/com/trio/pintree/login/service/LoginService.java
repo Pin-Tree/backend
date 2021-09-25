@@ -36,13 +36,13 @@ public class LoginService {
         return getJwtResponse(naverOauthService, naverProfile);
     }
 
-    private UserProfile getUserProfile(OauthService oauthService, AuthRequest authRequest){
+    private UserProfile getUserProfile(OauthService oauthService, AuthRequest authRequest) {
         AccessTokenResponse accessTokenResponse = oauthService.issueAccessToken(authRequest);
         return oauthService.getMemberFrom(accessTokenResponse);
     }
 
     private JwtResponse getJwtResponse(OauthService oauthService, UserProfile userProfile) {
-        Member member = oauthService.findMember(userProfile);
+        Member member = oauthService.login(userProfile);
         MemberResponseDto memberResponse = MemberResponseDto.fromEntity(member);
 
         String jwt = JwtUtil.createJwt(member.getId().toString());

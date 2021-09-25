@@ -9,12 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class SessionService {
     private final AuthRepository authRepository;
 
-    public void save(String uuid, Member member) {
+    public void login(String uuid, Member member) {
         Auth auth = Auth.from(uuid, member);
         authRepository.save(auth);
+    }
+
+    public void logout(String uuid) {
+        if (uuid != null) {
+            authRepository.deleteById(uuid);
+        }
     }
 
     public Member getMember(String uuid) {

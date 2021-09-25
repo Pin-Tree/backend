@@ -1,8 +1,9 @@
 package com.trio.pintree.login.controller;
 
+import com.trio.pintree.login.annotation.LoginRequired;
 import com.trio.pintree.login.dto.AuthRequest;
 import com.trio.pintree.login.dto.JwtResponse;
-import com.trio.pintree.login.service.AuthService;
+import com.trio.pintree.login.service.SessionService;
 import com.trio.pintree.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
-    private final AuthService authService;
+    private final SessionService sessionService;
 
     @GetMapping("/google")
     @ResponseStatus(HttpStatus.OK)
@@ -63,5 +67,12 @@ public class LoginController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(jwtResponse);
+    }
+
+    @LoginRequired
+    @GetMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public void logout(HttpServletRequest request){
+        sessionService.logout((String)request.getAttribute("uuid"));
     }
 }

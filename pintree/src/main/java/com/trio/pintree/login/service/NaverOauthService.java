@@ -23,9 +23,10 @@ public class NaverOauthService extends OauthService {
     private final NaverOauthProperties oauthProperties;
 
     public NaverOauthService(MemberRepository memberRepository,
+                             SessionService sessionService,
                              WebClient webClient,
                              NaverOauthProperties oauthProperties) {
-        super(memberRepository);
+        super(memberRepository, sessionService);
         this.webClient = webClient;
         this.oauthProperties = oauthProperties;
     }
@@ -50,7 +51,7 @@ public class NaverOauthService extends OauthService {
                 .orElseThrow(RuntimeException::new);
     }
 
-    private String getAsUriParams(AuthRequest authRequest){
+    private String getAsUriParams(AuthRequest authRequest) {
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(oauthProperties.getAccessTokenUrl())
                 .queryParam("client_id", oauthProperties.getClientId())
                 .queryParam("client_secret", oauthProperties.getClientSecret())

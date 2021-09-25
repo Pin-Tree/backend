@@ -18,9 +18,10 @@ public class GoogleOauthService extends OauthService {
     private final GoogleOauthProperties googleOauthProperties;
 
     public GoogleOauthService(MemberRepository memberRepository,
+                              SessionService sessionService,
                               WebClient webClient,
                               GoogleOauthProperties googleOauthProperties) {
-        super(memberRepository);
+        super(memberRepository, sessionService);
         this.webClient = webClient;
         this.googleOauthProperties = googleOauthProperties;
     }
