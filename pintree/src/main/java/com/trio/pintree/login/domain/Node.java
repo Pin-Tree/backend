@@ -35,10 +35,10 @@ public class Node {
     @Column(name = "is_official")
     private boolean isOfficial;
 
-    @OneToOne(mappedBy = "parent")
+    @OneToOne(mappedBy = "child")
     private ParentChild parent;
 
-    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<ParentChild> children = new ArrayList<>();
 
     private Node(boolean isMain, boolean isUp, long index, boolean isOfficial) {
@@ -57,7 +57,6 @@ public class Node {
         ParentChild parentChild = ParentChild.create(parent, node);
         parent.addChild(parentChild);
         node.addParent(parentChild);
-
         return node;
     }
 
