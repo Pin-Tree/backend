@@ -1,11 +1,11 @@
-package com.trio.pintree.login.service;
+package com.trio.pintree.node.service;
 
-import com.trio.pintree.login.domain.Node;
-import com.trio.pintree.login.dto.node.CreateCustomNodeRequest;
-import com.trio.pintree.login.dto.node.CreateNodeRequest;
-import com.trio.pintree.login.dto.node.CreateNodeResponse;
-import com.trio.pintree.login.dto.node.CreateOfficialNodeRequest;
-import com.trio.pintree.login.repository.NodeRepository;
+import com.trio.pintree.node.domain.Node;
+import com.trio.pintree.node.dto.CreateCustomNodeRequest;
+import com.trio.pintree.node.dto.CreateNodeRequest;
+import com.trio.pintree.node.dto.CreateNodeResponse;
+import com.trio.pintree.node.dto.CreateOfficialNodeRequest;
+import com.trio.pintree.node.repository.NodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

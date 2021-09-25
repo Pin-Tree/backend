@@ -1,6 +1,7 @@
 package com.trio.pintree.login.domain;
 
-import com.trio.pintree.login.repository.NodeRepository;
+import com.trio.pintree.node.repository.NodeRepository;
+import com.trio.pintree.node.domain.Node;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

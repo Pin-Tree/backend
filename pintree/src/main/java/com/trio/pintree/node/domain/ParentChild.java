@@ -1,4 +1,4 @@
-package com.trio.pintree.login.domain;
+package com.trio.pintree.node.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
