@@ -31,7 +31,7 @@ public class ParentChild {
         this.child = child;
     }
 
-    public static ParentChild create(Node parent, Node child) {
+    public static ParentChild of(Node parent, Node child) {
         return new ParentChild(parent, child);
     }
 
