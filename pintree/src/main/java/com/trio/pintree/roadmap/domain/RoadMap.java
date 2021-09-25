@@ -24,10 +24,6 @@ public class RoadMap {
     @Column(name = "is_public")
     private Boolean isPublic = false;
 
-    private double progress = 0.0;
-
-    private String shareUrl = "";
-
     private RoadMap(String title) {
         this.title = title;
     }
