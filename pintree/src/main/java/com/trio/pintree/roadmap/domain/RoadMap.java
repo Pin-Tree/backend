@@ -29,7 +29,7 @@ public class RoadMap {
         this.title = title;
     }
 
-    public static RoadMap create(String title) {
+    public static RoadMap from(String title) {
         return new RoadMap(title);
     }
 }
