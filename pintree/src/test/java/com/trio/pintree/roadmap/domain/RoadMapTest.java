@@ -22,7 +22,7 @@ class RoadMapTest {
         String title = "제목1";
 
         //when
-        RoadMap roadMap = RoadMap.create(title);
+        RoadMap roadMap = RoadMap.from(title);
         Set<ConstraintViolation<RoadMap>> violations = validator.validate(roadMap);
 
         //then
@@ -38,7 +38,7 @@ class RoadMapTest {
         String title = "";
 
         //when
-        RoadMap roadMap = RoadMap.create(title);
+        RoadMap roadMap = RoadMap.from(title);
         Set<ConstraintViolation<RoadMap>> violations = validator.validate(roadMap);
 
         //then
@@ -54,7 +54,7 @@ class RoadMapTest {
         String title = null;
 
         //when
-        RoadMap roadMap = RoadMap.create(title);
+        RoadMap roadMap = RoadMap.from(title);
         Set<ConstraintViolation<RoadMap>> violations = validator.validate(roadMap);
 
         //then
@@ -70,7 +70,7 @@ class RoadMapTest {
         String title = " ";
 
         //when
-        RoadMap roadMap = RoadMap.create(title);
+        RoadMap roadMap = RoadMap.from(title);
         Set<ConstraintViolation<RoadMap>> violations = validator.validate(roadMap);
 
         //then

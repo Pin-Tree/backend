@@ -23,7 +23,7 @@ class RoadMapRepositoryTest {
     @DisplayName("RoadMapRepository 저장 테스트")
     void itShouldSaveRoadMap() {
         //given
-        RoadMap roadMap = RoadMap.create("제목1");
+        RoadMap roadMap = RoadMap.from("제목1");
 
         //when
         RoadMap savedRoadMap = roadMapRepository.save(roadMap);
@@ -38,7 +38,7 @@ class RoadMapRepositoryTest {
     @DisplayName("RoadMapRepository 단일 조회 테스트")
     void itShouldFindRoadMapById() {
         //given
-        RoadMap roadMap = RoadMap.create("제목1");
+        RoadMap roadMap = RoadMap.from("제목1");
         int expectedSize = 1;
 
         //when
