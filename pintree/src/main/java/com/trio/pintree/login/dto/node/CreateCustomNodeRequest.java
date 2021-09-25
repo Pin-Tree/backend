@@ -6,24 +6,18 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class CreateCustomNodeRequest {
-
-    @JsonProperty("node_name")
-    private String name;
-
-    @JsonProperty("parent_id")
-    private Long parentId;
-
-    @JsonProperty("is_main")
-    private boolean isMain;
-
-    @JsonProperty("is_up")
-    private boolean isUp;
-
-    @JsonProperty("index")
-    private long index;
+public class CreateCustomNodeRequest extends CreateNodeRequest {
 
     @JsonProperty("custom_info")
     private String customInfo;
 
+    public CreateCustomNodeRequest(String name,
+                                   Long parentId,
+                                   boolean isMain,
+                                   boolean isUp,
+                                   long index,
+                                   String customInfo) {
+        super(name, parentId, isMain, isUp, index);
+        this.customInfo = customInfo;
+    }
 }
