@@ -15,11 +15,10 @@ class NodeTest {
 
     @Test
     void 메인노드를_생성할_수_있다() throws Exception {
-        boolean isUp = true;
         long index = 100L;
         boolean isOfficial = false;
 
-        Node node = Node.createMainNode(isUp, index, isOfficial);
+        Node node = Node.createMainNode(index, isOfficial);
 
         repository.save(node);
 
@@ -34,7 +33,7 @@ class NodeTest {
         long index = 100L;
         boolean isOfficial = false;
 
-        Node parent = Node.createMainNode(isUp, index, isOfficial);
+        Node parent = Node.createMainNode(index, isOfficial);
         Node firstChild = Node.createNonMainNode(parent, isUp, index, isOfficial);
         Node secondChild = Node.createNonMainNode(parent, isDown, index, isOfficial);
 
