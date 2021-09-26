@@ -22,7 +22,7 @@ public class RoadMap {
     private String title;
 
     @Column(name = "is_public")
-    private Boolean isPublic = false;
+    private boolean isPublic = false;
 
     private RoadMap(String title) {
         this.title = title;
