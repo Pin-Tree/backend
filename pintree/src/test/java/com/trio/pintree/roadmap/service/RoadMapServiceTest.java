@@ -2,6 +2,8 @@ package com.trio.pintree.roadmap.service;
 
 import com.trio.pintree.roadmap.domain.RoadMap;
 import com.trio.pintree.roadmap.dto.RoadMapDto;
+import com.trio.pintree.roadmap.dto.RoadMapLookUpRequest;
+import com.trio.pintree.roadmap.dto.RoadMapLookUpResponse;
 import com.trio.pintree.roadmap.repository.RoadMapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -55,5 +60,34 @@ class RoadMapServiceTest {
 
         //then
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void 로드맵_조회여부를_테스트한다() throws
+            NoSuchMethodException,
+            InvocationTargetException,
+            IllegalAccessException,
+            InstantiationException {
+
+        //given
+        RoadMap roadMap = RoadMap.from("제목1");
+        Method privateSetter = RoadMap.class.getDeclaredMethod("setId", Long.class);
+        privateSetter.setAccessible(true);
+        privateSetter.invoke(roadMap, 1L);
+
+        Constructor<RoadMapLookUpRequest> roadMapLookUpRequest = RoadMapLookUpRequest.class
+                .getDeclaredConstructor(Long.class);
+        roadMapLookUpRequest.setAccessible(true);
+        RoadMapLookUpRequest roadMapLookupRequest = roadMapLookUpRequest.newInstance(1L);
+
+        RoadMapLookUpResponse expected = RoadMapLookUpResponse.from(roadMap);
+
+        when(roadMapRepository.findById(roadMapLookupRequest.getRoadMapId())).thenReturn(Optional.of(roadMap));
+
+        //when
+        RoadMapLookUpResponse result = roadMapService.findRoadMapById(roadMapLookupRequest);
+
+        //then
+        assertThat(result).isEqualTo(expected);
     }
 }
