@@ -1,18 +1,48 @@
 package com.trio.pintree.nodeInfo.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+import static javax.persistence.DiscriminatorType.STRING;
 
 @Entity
 @Getter
-@DiscriminatorColumn(name = "info_type")
+@DiscriminatorColumn(name = "info_type", discriminatorType = STRING, length = 10)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class OfficialNodeInfo extends NodeInfo {
-    String thumbnail;
-    Integer wishCount;
-    String shortcutUrl;
+public abstract class OfficialNodeInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long infoId;
+
+    private Long nodeId;
+
+    private String title;
+
+    private String description;
+
+    private LocalDateTime date;
+
+    private String thumbnail;
+
+    private Integer wishCount;
+
+    private String shortcutUrl;
+
+    public OfficialNodeInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl) {
+        this.nodeId = nodeId;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.thumbnail = thumbnail;
+        this.wishCount = wishCount;
+        this.shortcutUrl = shortcutUrl;
+    }
+
+    public OfficialNodeInfo() {
+
+    }
 }

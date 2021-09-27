@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,20 +12,16 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("article")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleInfo extends OfficialNodeInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long articleId;
+
     private String platform;
     private String writer;
 
-    public ArticleInfo(Long infoId, Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String platform, String writer) {
-        this.infoId = infoId;
-        this.nodeId = nodeId;
-        this.title = title;
-        this.description = description;
-        this.date = date;
-
-        this.thumbnail = thumbnail;
-        this.wishCount = wishCount;
-        this.shortcutUrl = shortcutUrl;
-
+    public ArticleInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String platform, String writer) {
+        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
         this.platform = platform;
         this.writer = writer;
     }
@@ -36,7 +31,6 @@ public class ArticleInfo extends OfficialNodeInfo {
     }
 
     static class Builder {
-        private Long infoId;
         private Long nodeId;
         private String title;
         private String description;
@@ -48,11 +42,6 @@ public class ArticleInfo extends OfficialNodeInfo {
 
         private String platform;
         private String writer;
-
-        Builder infoId(Long infoId) {
-            this.infoId = infoId;
-            return this;
-        }
 
         Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
@@ -100,7 +89,7 @@ public class ArticleInfo extends OfficialNodeInfo {
         }
 
         ArticleInfo build() {
-            return new ArticleInfo(infoId, nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, platform, writer);
+            return new ArticleInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, platform, writer);
         }
 
     }

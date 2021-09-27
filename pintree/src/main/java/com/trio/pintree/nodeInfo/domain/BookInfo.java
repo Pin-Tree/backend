@@ -3,34 +3,34 @@ package com.trio.pintree.nodeInfo.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @DiscriminatorValue("book")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class BookInfo extends OfficialNodeInfo {
+
     private String publisher;
+
     private String author;
+
     private Integer price;
 
-    public BookInfo(Long infoId, Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String publisher, String author, Integer price) {
-        this.infoId = infoId;
-        this.nodeId = nodeId;
-        this.title = title;
-        this.description = description;
-        this.date = date;
+    public BookInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String publisher, String author, Integer price) {
 
-        this.thumbnail = thumbnail;
-        this.wishCount = wishCount;
-        this.shortcutUrl = shortcutUrl;
+        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
 
         this.publisher = publisher;
         this.author = author;
         this.price = price;
+    }
+
+    public BookInfo() {
+
     }
 
     public static Builder builder() {
@@ -38,24 +38,18 @@ public class BookInfo extends OfficialNodeInfo {
     }
 
     static class Builder {
-        private Long infoId;
-        private Long nodeId;
-        private String title;
-        private String description;
-        private LocalDateTime date;
+        public Long nodeId;
+        public String title;
+        public String description;
+        public LocalDateTime date;
 
-        private String thumbnail;
-        private Integer wishCount;
-        private String shortcutUrl;
+        public String thumbnail;
+        public Integer wishCount;
+        public String shortcutUrl;
 
-        private String publisher;
-        private String author;
-        private Integer price;
-
-        Builder infoId(Long infoId) {
-            this.infoId = infoId;
-            return this;
-        }
+        public String publisher;
+        public String author;
+        public Integer price;
 
         Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
@@ -108,41 +102,8 @@ public class BookInfo extends OfficialNodeInfo {
         }
 
         BookInfo build() {
-            return new BookInfo(infoId, nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
+            return new BookInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
         }
 
-    }
-
-    public Long getInfoId() {
-        return infoId;
-    }
-
-    public Long getNodeId() {
-        return nodeId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public Integer getWishCount() {
-        return wishCount;
-    }
-
-    public String getShortcutUrl() {
-        return shortcutUrl;
     }
 }

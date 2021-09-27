@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,21 +12,17 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("lecture")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LectureInfo extends OfficialNodeInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long lectureId;
+
     private String supplier;
     private String instructor;
     private Integer price;
 
-    public LectureInfo(Long infoId, Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String supplier, String instructor, Integer price) {
-        this.infoId = infoId;
-        this.nodeId = nodeId;
-        this.title = title;
-        this.description = description;
-        this.date = date;
-
-        this.thumbnail = thumbnail;
-        this.wishCount = wishCount;
-        this.shortcutUrl = shortcutUrl;
-
+    public LectureInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String supplier, String instructor, Integer price) {
+        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
         this.supplier = supplier;
         this.instructor = instructor;
         this.price = price;
@@ -38,7 +33,6 @@ public class LectureInfo extends OfficialNodeInfo {
     }
 
     static class Builder {
-        private Long infoId;
         private Long nodeId;
         private String title;
         private String description;
@@ -51,11 +45,6 @@ public class LectureInfo extends OfficialNodeInfo {
         private String supplier;
         private String instructor;
         private Integer price;
-
-        Builder infoId(Long infoId) {
-            this.infoId = infoId;
-            return this;
-        }
 
         Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
@@ -108,7 +97,7 @@ public class LectureInfo extends OfficialNodeInfo {
         }
 
         LectureInfo build() {
-            return new LectureInfo(infoId, nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, supplier, instructor, price);
+            return new LectureInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, supplier, instructor, price);
         }
 
     }
