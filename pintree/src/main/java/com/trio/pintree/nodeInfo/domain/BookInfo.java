@@ -1,6 +1,8 @@
 package com.trio.pintree.nodeInfo.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @DiscriminatorValue("book")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BookInfo extends OfficialNodeInfo {
     private String publisher;
     private String author;
@@ -28,9 +31,6 @@ public class BookInfo extends OfficialNodeInfo {
         this.publisher = publisher;
         this.author = author;
         this.price = price;
-    }
-
-    public BookInfo() {
     }
 
     public static Builder builder() {
@@ -113,4 +113,36 @@ public class BookInfo extends OfficialNodeInfo {
 
     }
 
+    public Long getInfoId() {
+        return infoId;
+    }
+
+    public Long getNodeId() {
+        return nodeId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public Integer getWishCount() {
+        return wishCount;
+    }
+
+    public String getShortcutUrl() {
+        return shortcutUrl;
+    }
 }

@@ -1,6 +1,8 @@
 package com.trio.pintree.nodeInfo.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @DiscriminatorValue("article")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleInfo extends OfficialNodeInfo {
     private String platform;
     private String writer;
@@ -26,10 +29,6 @@ public class ArticleInfo extends OfficialNodeInfo {
 
         this.platform = platform;
         this.writer = writer;
-    }
-
-    public ArticleInfo() {
-
     }
 
     public static Builder builder() {
