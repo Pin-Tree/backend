@@ -1,25 +1,22 @@
 package com.trio.pintree.nodeInfo.domain;
 
-
-import lombok.Getter;
-
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "node_type")
+@MappedSuperclass
 public abstract class NodeInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long infoId;
+    Long infoId;
 
-    private Long nodeId;
+    Long nodeId;
 
-    private String title;
+    String title;
 
-    private String description;
+    String description;
 
-    private LocalDateTime date;
+    LocalDateTime date;
 }
