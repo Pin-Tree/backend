@@ -32,6 +32,10 @@ public class RoadMap {
         return new RoadMap(title);
     }
 
+    private void setId(Long id) {
+        this.id = id;
+    }
+
     public void setPublic() {
         this.isPublic = true;
     }
