@@ -2,6 +2,8 @@ package com.trio.pintree.roadmap.service;
 
 import com.trio.pintree.roadmap.domain.RoadMap;
 import com.trio.pintree.roadmap.dto.RoadMapDto;
+import com.trio.pintree.roadmap.dto.RoadMapLookUpRequest;
+import com.trio.pintree.roadmap.dto.RoadMapLookUpResponse;
 import com.trio.pintree.roadmap.exception.NotFoundRoadMapException;
 import com.trio.pintree.roadmap.repository.RoadMapRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,11 @@ public class RoadMapService {
                 .orElseThrow(NotFoundRoadMapException::new);
         roadMap.setPrivate();
         return roadMap.isPublic();
+    }
+
+    public RoadMapLookUpResponse findRoadMapById(RoadMapLookUpRequest roadMapLookupRequest) {
+        RoadMap roadMap = roadMapRepository.findById(roadMapLookupRequest.getRoadMapId())
+                .orElseThrow(NotFoundRoadMapException::new);
+        return RoadMapLookUpResponse.from(roadMap);
     }
 }
