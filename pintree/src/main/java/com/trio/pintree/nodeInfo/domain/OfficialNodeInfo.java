@@ -16,6 +16,8 @@ public abstract class OfficialNodeInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long infoId;
 
+    //TODO. Node 객체로 변경해야함. (연관관계 맺을 때 생각)
+    //TODO. BookInfo... 등 자식 클래스에서 nodeId를 많이 사용하고 있으므로 변경할 때 참고할 것
     private Long nodeId;
 
     private String title;

@@ -13,6 +13,7 @@ public class CustomNodeInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long infoId;
 
+    //TODO. Node 객체로 변경해야함. (연관관계 맺을 때 생각)
     Long nodeId;
 
     String title;
