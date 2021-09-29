@@ -1,11 +1,14 @@
 package com.trio.pintree.roadmap.domain;
 
+import com.trio.pintree.node.domain.Node;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +26,10 @@ public class RoadMap {
 
     @Column(name = "is_public")
     private boolean isPublic = false;
+
+    @OneToMany(mappedBy = "roadMap", fetch = FetchType.LAZY)
+    private List<Node> nodes = new ArrayList<>();
+
 
     private RoadMap(String title) {
         this.title = title;

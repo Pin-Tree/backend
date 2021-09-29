@@ -1,5 +1,6 @@
 package com.trio.pintree.node.domain;
 
+import com.trio.pintree.roadmap.domain.RoadMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,10 @@ public class Node {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<ParentChild> children = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roadmap_id")
+    private RoadMap roadMap;
 
     private Node(String name, long index, boolean isMain, boolean isOfficial, boolean isUp) {
         this.name = name;
