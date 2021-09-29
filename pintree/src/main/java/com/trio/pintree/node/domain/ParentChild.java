@@ -18,11 +18,11 @@ public class ParentChild {
     @Column(name = "parent_child_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     private Node parent;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "child_id")
     private Node child;
 
@@ -31,7 +31,7 @@ public class ParentChild {
         this.child = child;
     }
 
-    public static ParentChild create(Node parent, Node child) {
+    public static ParentChild of(Node parent, Node child) {
         return new ParentChild(parent, child);
     }
 
