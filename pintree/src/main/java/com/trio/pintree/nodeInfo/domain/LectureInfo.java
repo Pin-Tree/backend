@@ -4,7 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,10 +13,6 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("lecture")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LectureInfo extends OfficialNodeInfo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lectureId;
 
     private String supplier;
     private String instructor;
