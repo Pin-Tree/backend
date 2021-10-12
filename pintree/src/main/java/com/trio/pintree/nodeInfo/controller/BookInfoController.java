@@ -17,7 +17,7 @@ public class BookInfoController {
 
     @PostMapping("{nodeId}/bookInfo")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveBookInfo(@PathVariable long nodeId, @RequestBody BookInfoRequestDto bookInfo) {
+    public void saveBookInfo(@PathVariable Long nodeId, @RequestBody BookInfoRequestDto bookInfo) {
         bookInfoService.save(nodeId, bookInfo);
     }
 
