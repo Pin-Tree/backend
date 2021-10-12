@@ -31,5 +31,9 @@ public class BookInfoService {
         BookInfo bookInfo = repository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
         return BookInfoDto.from(bookInfo);
     }
+
+    public void deleteByInfoId(Long infoId) {
+        repository.deleteByInfoId(infoId);
+    }
 }
 

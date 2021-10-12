@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface OfficialNodeInfoRepository<T extends OfficialNodeInfo> extends JpaRepository<T, Long> {
     List<T> findByNodeId(Long nodeId);
+    Optional<T> findByNodeIdAndInfoId(Long nodeId, Long infoId);
+
+    @Transactional
+    void deleteByInfoId(Long infoId);
 }

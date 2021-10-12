@@ -32,4 +32,8 @@ public class NodeInfoController {
         return bookInfoService.findByNodeIdAndInfoId(nodeId,infoId);
     }
 
+    @DeleteMapping("bookInfo/{infoId}")
+    public void deleteBookInfo(@PathVariable(name = "infoId") Long infoId) throws Exception {
+        bookInfoService.deleteByInfoId(infoId);
+    }
 }
