@@ -1,6 +1,5 @@
 package com.trio.pintree.login.domain;
 
-import com.trio.pintree.login.dto.oauth.UserProfile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -37,5 +37,18 @@ public class Member {
 
     public static Member create(String email, String nickname, String profileUrl) {
         return new Member(email, nickname, profileUrl);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Member)) return false;
+        Member member = (Member) o;
+        return id.equals(member.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
