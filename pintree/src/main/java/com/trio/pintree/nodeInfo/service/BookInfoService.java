@@ -21,7 +21,7 @@ public class BookInfoService {
         repository.save(info);
     }
 
-    public BookInfosDto find(Long nodeId) {
+    public BookInfosDto findByNodeId(Long nodeId) {
         List<BookInfo> bookInfoList = repository.findByNodeId(nodeId);
         List<BookInfoDto> bookInfoListDto = bookInfoList.stream().map(BookInfoDto::from).collect(Collectors.toList());
         return BookInfosDto.from(bookInfoListDto);
@@ -34,6 +34,11 @@ public class BookInfoService {
 
     public void deleteByInfoId(Long infoId) {
         repository.deleteByInfoId(infoId);
+    }
+
+    public void update(long nodeId, long infoId, BookInfoRequestDto bookInfo) throws Exception {
+        BookInfo findBookInfo = repository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+        // setter 써야하나?
     }
 }
 
