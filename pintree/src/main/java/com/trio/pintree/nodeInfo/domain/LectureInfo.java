@@ -29,7 +29,7 @@ public class LectureInfo extends OfficialNodeInfo {
         return new Builder();
     }
 
-    static class Builder {
+    public static class Builder {
         private Long nodeId;
         private String title;
         private String description;
@@ -43,57 +43,57 @@ public class LectureInfo extends OfficialNodeInfo {
         private String instructor;
         private Integer price;
 
-        Builder nodeId(Long nodeId) {
+        public Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
             return this;
         }
 
-        Builder title(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        Builder description(String description) {
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        Builder date(LocalDateTime date) {
+        public Builder date(LocalDateTime date) {
             this.date = date;
             return this;
         }
 
-        Builder thumbnail(String thumbnail) {
+        public Builder thumbnail(String thumbnail) {
             this.thumbnail = thumbnail;
             return this;
         }
 
-        Builder wishCount(Integer wishCount) {
+        public Builder wishCount(Integer wishCount) {
             this.wishCount = wishCount;
             return this;
         }
 
-        Builder shortcutUrl(String shortcutUrl) {
+        public Builder shortcutUrl(String shortcutUrl) {
             this.shortcutUrl = shortcutUrl;
             return this;
         }
 
-        Builder supplier(String supplier) {
+        public Builder supplier(String supplier) {
             this.supplier = supplier;
             return this;
         }
 
-        Builder instructor(String instructor) {
+        public Builder instructor(String instructor) {
             this.instructor = instructor;
             return this;
         }
 
-        Builder price(Integer price) {
+        public Builder price(Integer price) {
             this.price = price;
             return this;
         }
 
-        LectureInfo build() {
+        public LectureInfo build() {
             return new LectureInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, supplier, instructor, price);
         }
 

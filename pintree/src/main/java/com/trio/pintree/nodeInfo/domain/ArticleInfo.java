@@ -27,7 +27,7 @@ public class ArticleInfo extends OfficialNodeInfo {
         return new Builder();
     }
 
-    static class Builder {
+    public static class Builder {
         private Long nodeId;
         private String title;
         private String description;
@@ -40,52 +40,52 @@ public class ArticleInfo extends OfficialNodeInfo {
         private String platform;
         private String writer;
 
-        Builder nodeId(Long nodeId) {
+        public Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
             return this;
         }
 
-        Builder title(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        Builder description(String description) {
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        Builder date(LocalDateTime date) {
+        public Builder date(LocalDateTime date) {
             this.date = date;
             return this;
         }
 
-        Builder thumbnail(String thumbnail) {
+        public Builder thumbnail(String thumbnail) {
             this.thumbnail = thumbnail;
             return this;
         }
 
-        Builder wishCount(Integer wishCount) {
+        public Builder wishCount(Integer wishCount) {
             this.wishCount = wishCount;
             return this;
         }
 
-        Builder shortcutUrl(String shortcutUrl) {
+        public Builder shortcutUrl(String shortcutUrl) {
             this.shortcutUrl = shortcutUrl;
             return this;
         }
 
-        Builder platform(String platform) {
+        public Builder platform(String platform) {
             this.platform = platform;
             return this;
         }
 
-        Builder writer(String writer) {
+        public Builder writer(String writer) {
             this.writer = writer;
             return this;
         }
 
-        ArticleInfo build() {
+        public ArticleInfo build() {
             return new ArticleInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, platform, writer);
         }
 

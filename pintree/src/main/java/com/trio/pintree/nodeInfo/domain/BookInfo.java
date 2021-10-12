@@ -36,71 +36,71 @@ public class BookInfo extends OfficialNodeInfo {
         return new Builder();
     }
 
-    static class Builder {
-        public Long nodeId;
-        public String title;
-        public String description;
-        public LocalDateTime date;
+    public static class Builder {
+        private Long nodeId;
+        private String title;
+        private String description;
+        private LocalDateTime date;
 
-        public String thumbnail;
-        public Integer wishCount;
-        public String shortcutUrl;
+        private String thumbnail;
+        private Integer wishCount;
+        private String shortcutUrl;
 
-        public String publisher;
-        public String author;
-        public Integer price;
+        private String publisher;
+        private String author;
+        private Integer price;
 
-        Builder nodeId(Long nodeId) {
+        public Builder nodeId(Long nodeId) {
             this.nodeId = nodeId;
             return this;
         }
 
-        Builder title(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        Builder description(String description) {
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        Builder date(LocalDateTime date) {
+        public Builder date(LocalDateTime date) {
             this.date = date;
             return this;
         }
 
-        Builder thumbnail(String thumbnail) {
+        public Builder thumbnail(String thumbnail) {
             this.thumbnail = thumbnail;
             return this;
         }
 
-        Builder wishCount(Integer wishCount) {
+        public Builder wishCount(Integer wishCount) {
             this.wishCount = wishCount;
             return this;
         }
 
-        Builder shortcutUrl(String shortcutUrl) {
+        public Builder shortcutUrl(String shortcutUrl) {
             this.shortcutUrl = shortcutUrl;
             return this;
         }
 
-        Builder publisher(String publisher) {
+        public Builder publisher(String publisher) {
             this.publisher = publisher;
             return this;
         }
 
-        Builder author(String author) {
+        public Builder author(String author) {
             this.author = author;
             return this;
         }
 
-        Builder price(Integer price) {
+        public Builder price(Integer price) {
             this.price = price;
             return this;
         }
 
-        BookInfo build() {
+        public BookInfo build() {
             return new BookInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
         }
 
