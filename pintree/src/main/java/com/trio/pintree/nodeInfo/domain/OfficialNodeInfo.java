@@ -5,11 +5,8 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import static javax.persistence.DiscriminatorType.STRING;
-
 @Entity
 @Getter
-@DiscriminatorColumn(name = "info_type", discriminatorType = STRING, length = 10)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class OfficialNodeInfo {
     @Id
