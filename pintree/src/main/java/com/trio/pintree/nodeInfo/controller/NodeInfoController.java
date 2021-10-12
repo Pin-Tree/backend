@@ -24,7 +24,12 @@ public class NodeInfoController {
     //BookInfoResponseDto로 변경해야함
     @GetMapping("{nodeId}/bookInfo")
     public BookInfosDto getBookInfoList(@PathVariable Long nodeId) {
-        return bookInfoService.find(nodeId);
+        return bookInfoService.findByNodeId(nodeId);
+    }
+
+    @GetMapping("{nodeId}/bookInfo/{infoId}")
+    public BookInfoDto getBookInfo(@PathVariable(name = "nodeId") Long nodeId, @PathVariable(name = "infoId") Long infoId) throws Exception {
+        return bookInfoService.findByNodeIdAndInfoId(nodeId,infoId);
     }
 
 }

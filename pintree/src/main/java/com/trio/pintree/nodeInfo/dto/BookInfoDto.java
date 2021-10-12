@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @RequiredArgsConstructor
 public class BookInfoDto {
+
+    private final Long infoId;
+
     private final String title;
 
     private final String description;
@@ -28,6 +31,6 @@ public class BookInfoDto {
     private final Integer price;
 
     public static BookInfoDto from(BookInfo bookInfo) {
-        return new BookInfoDto(bookInfo.getTitle(), bookInfo.getDescription(), bookInfo.getDate(), bookInfo.getThumbnail(), bookInfo.getWishCount(), bookInfo.getShortcutUrl(), bookInfo.getPublisher(), bookInfo.getAuthor(), bookInfo.getPrice());
+        return new BookInfoDto(bookInfo.getInfoId(), bookInfo.getTitle(), bookInfo.getDescription(), bookInfo.getDate(), bookInfo.getThumbnail(), bookInfo.getWishCount(), bookInfo.getShortcutUrl(), bookInfo.getPublisher(), bookInfo.getAuthor(), bookInfo.getPrice());
     }
 }

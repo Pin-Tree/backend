@@ -26,5 +26,10 @@ public class BookInfoService {
         List<BookInfoDto> bookInfoListDto = bookInfoList.stream().map(BookInfoDto::from).collect(Collectors.toList());
         return BookInfosDto.from(bookInfoListDto);
     }
+
+    public BookInfoDto findByNodeIdAndInfoId(Long nodeId, Long infoId) throws Exception {
+        BookInfo bookInfo = repository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+        return BookInfoDto.from(bookInfo);
+    }
 }
 
