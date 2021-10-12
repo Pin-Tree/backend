@@ -17,10 +17,22 @@ class BookInfoRepositoryTest {
 
     @Test
     void save() throws Exception {
-        BookInfo bookInfo = new BookInfo(2L, "제목", "설명", LocalDateTime.now(), "thumb", 0, "url", "publisher", "author", 1000);
-        bookInfoRepository.save(bookInfo);
+        BookInfo bookInfo = BookInfo.builder()
+                                    .nodeId(2L)
+                                    .title("제목")
+                                    .description("설명")
+                                    .date(LocalDateTime.now())
+                                    .thumbnail("thumb")
+                                    .wishCount(0)
+                                    .shortcutUrl("url")
+                                    .publisher("publisher")
+                                    .author("author")
+                                    .price(1000)
+                                    .build();
 
+        bookInfoRepository.save(bookInfo);
         BookInfo findInfo = bookInfoRepository.findById(1L).orElseThrow(Exception::new);
+
         assertThat(findInfo).isEqualTo(bookInfo);
     }
 }
