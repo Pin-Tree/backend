@@ -18,7 +18,6 @@ class BookInfoRepositoryTest {
     @Test
     void save() throws Exception {
         BookInfo bookInfo = BookInfo.builder()
-                                    .nodeId(2L)
                                     .title("제목")
                                     .description("설명")
                                     .date(LocalDateTime.now())

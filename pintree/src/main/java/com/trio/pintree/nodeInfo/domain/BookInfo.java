@@ -1,5 +1,6 @@
 package com.trio.pintree.nodeInfo.domain;
 
+import com.trio.pintree.node.domain.Node;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -19,9 +20,9 @@ public class BookInfo extends OfficialNodeInfo {
 
     private Integer price;
 
-    public BookInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String publisher, String author, Integer price) {
+    public BookInfo(Node node, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String publisher, String author, Integer price) {
 
-        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
+        super(node, title, description, date, thumbnail, wishCount, shortcutUrl);
 
         this.publisher = publisher;
         this.author = author;
@@ -37,7 +38,8 @@ public class BookInfo extends OfficialNodeInfo {
     }
 
     public static class Builder {
-        private Long nodeId;
+
+        private Node node;
         private String title;
         private String description;
         private LocalDateTime date;
@@ -50,10 +52,12 @@ public class BookInfo extends OfficialNodeInfo {
         private String author;
         private Integer price;
 
-        public Builder nodeId(Long nodeId) {
-            this.nodeId = nodeId;
+
+        public Builder node(Node node) {
+            this.node = node;
             return this;
         }
+
 
         public Builder title(String title) {
             this.title = title;
@@ -101,7 +105,7 @@ public class BookInfo extends OfficialNodeInfo {
         }
 
         public BookInfo build() {
-            return new BookInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
+            return new BookInfo(node, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
         }
 
     }

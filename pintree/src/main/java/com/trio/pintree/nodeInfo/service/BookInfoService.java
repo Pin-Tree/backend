@@ -1,5 +1,7 @@
 package com.trio.pintree.nodeInfo.service;
 
+import com.trio.pintree.node.domain.Node;
+import com.trio.pintree.node.repository.NodeRepository;
 import com.trio.pintree.nodeInfo.domain.BookInfo;
 import com.trio.pintree.nodeInfo.dto.BookInfoDto;
 import com.trio.pintree.nodeInfo.dto.BookInfoRequestDto;
@@ -14,30 +16,34 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BookInfoService {
-    private final BookInfoRepository repository;
+    private final BookInfoRepository bookInfoRepository;
+    private final NodeRepository nodeRepository;
 
-    public void save(Long nodeId, BookInfoRequestDto infoDto) {
-        BookInfo info = BookInfoRequestDto.of(nodeId, infoDto);
-        repository.save(info);
+    public void save(Long nodeId, BookInfoRequestDto infoDto) throws Exception {
+
+        Node findNode = nodeRepository.findById(nodeId).orElseThrow(Exception::new);
+        BookInfo info = BookInfoRequestDto.of(findNode, infoDto);
+
+        bookInfoRepository.save(info);
     }
 
     public BookInfosDto findByNodeId(Long nodeId) {
-        List<BookInfo> bookInfoList = repository.findByNodeId(nodeId);
+        List<BookInfo> bookInfoList = bookInfoRepository.findByNodeId(nodeId);
         List<BookInfoDto> bookInfoListDto = bookInfoList.stream().map(BookInfoDto::from).collect(Collectors.toList());
         return BookInfosDto.from(bookInfoListDto);
     }
 
     public BookInfoDto findByNodeIdAndInfoId(Long nodeId, Long infoId) throws Exception {
-        BookInfo bookInfo = repository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+        BookInfo bookInfo = bookInfoRepository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
         return BookInfoDto.from(bookInfo);
     }
 
     public void deleteByInfoId(Long infoId) {
-        repository.deleteByInfoId(infoId);
+        bookInfoRepository.deleteByInfoId(infoId);
     }
 
     public void update(long nodeId, long infoId, BookInfoRequestDto bookInfo) throws Exception {
-        BookInfo findBookInfo = repository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+        BookInfo findBookInfo = bookInfoRepository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
         // setter 써야하나?
     }
 }

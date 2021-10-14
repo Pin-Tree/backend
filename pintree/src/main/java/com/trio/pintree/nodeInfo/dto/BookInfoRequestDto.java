@@ -1,5 +1,6 @@
 package com.trio.pintree.nodeInfo.dto;
 
+import com.trio.pintree.node.domain.Node;
 import com.trio.pintree.nodeInfo.domain.BookInfo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class BookInfoRequestDto {
 
     private final Integer price;
 
-    public static BookInfo of(Long nodeId, BookInfoRequestDto bookInfoRequestDto) {
+    public static BookInfo of(Node findNode, BookInfoRequestDto bookInfoRequestDto) {
         return BookInfo.builder()
-                       .nodeId(nodeId)
+                       .node(findNode)
                        .title(bookInfoRequestDto.title)
                        .description(bookInfoRequestDto.description)
                        .date(bookInfoRequestDto.date)

@@ -17,8 +17,8 @@ public class ArticleInfo extends OfficialNodeInfo {
     private String platform;
     private String writer;
 
-    public ArticleInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String platform, String writer) {
-        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
+    public ArticleInfo(String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String platform, String writer) {
+        super(null, title, description, date, thumbnail, wishCount, shortcutUrl);
         this.platform = platform;
         this.writer = writer;
     }
@@ -39,11 +39,6 @@ public class ArticleInfo extends OfficialNodeInfo {
 
         private String platform;
         private String writer;
-
-        public Builder nodeId(Long nodeId) {
-            this.nodeId = nodeId;
-            return this;
-        }
 
         public Builder title(String title) {
             this.title = title;
@@ -86,7 +81,7 @@ public class ArticleInfo extends OfficialNodeInfo {
         }
 
         public ArticleInfo build() {
-            return new ArticleInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, platform, writer);
+            return new ArticleInfo(title, description, date, thumbnail, wishCount, shortcutUrl, platform, writer);
         }
 
     }

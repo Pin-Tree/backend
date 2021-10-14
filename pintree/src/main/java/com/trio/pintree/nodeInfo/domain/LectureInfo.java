@@ -18,8 +18,8 @@ public class LectureInfo extends OfficialNodeInfo {
     private String instructor;
     private Integer price;
 
-    public LectureInfo(Long nodeId, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String supplier, String instructor, Integer price) {
-        super(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl);
+    public LectureInfo(String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String supplier, String instructor, Integer price) {
+        super(null, title, description, date, thumbnail, wishCount, shortcutUrl);
         this.supplier = supplier;
         this.instructor = instructor;
         this.price = price;
@@ -30,7 +30,6 @@ public class LectureInfo extends OfficialNodeInfo {
     }
 
     public static class Builder {
-        private Long nodeId;
         private String title;
         private String description;
         private LocalDateTime date;
@@ -42,11 +41,6 @@ public class LectureInfo extends OfficialNodeInfo {
         private String supplier;
         private String instructor;
         private Integer price;
-
-        public Builder nodeId(Long nodeId) {
-            this.nodeId = nodeId;
-            return this;
-        }
 
         public Builder title(String title) {
             this.title = title;
@@ -94,7 +88,7 @@ public class LectureInfo extends OfficialNodeInfo {
         }
 
         public LectureInfo build() {
-            return new LectureInfo(nodeId, title, description, date, thumbnail, wishCount, shortcutUrl, supplier, instructor, price);
+            return new LectureInfo(title, description, date, thumbnail, wishCount, shortcutUrl, supplier, instructor, price);
         }
 
     }

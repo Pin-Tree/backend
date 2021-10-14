@@ -18,7 +18,6 @@ class LectureInfoRepositoryTest {
     @Test
     void save() throws Exception {
         LectureInfo lectureInfo = LectureInfo.builder()
-                                             .nodeId(2L)
                                              .title("제목")
                                              .description("설명")
                                              .date(LocalDateTime.now())
