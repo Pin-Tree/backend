@@ -35,6 +35,14 @@ public class ParentChild {
         return new ParentChild(parent, child);
     }
 
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    public void setChild(Node child) {
+        this.child = child;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
