@@ -1,6 +1,6 @@
 package com.trio.pintree.roadmap.dto;
 
-import com.trio.pintree.node.domain.Node;
+import com.trio.pintree.node.dto.LookupNodeResponse;
 import com.trio.pintree.roadmap.domain.RoadMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,10 +19,10 @@ public class RoadMapLookUpResponse {
 
     private final boolean isPublic;
 
-    private final List<Node> nodeList;
+    private final List<LookupNodeResponse> nodes;
 
-    public static RoadMapLookUpResponse from(RoadMap roadMap, List<Node> nodeList) {
-        return new RoadMapLookUpResponse(roadMap.getId(), roadMap.getTitle(), roadMap.isPublic(),  nodeList);
+    public static RoadMapLookUpResponse from(RoadMap roadMap, List<LookupNodeResponse> nodes) {
+        return new RoadMapLookUpResponse(roadMap.getId(), roadMap.getTitle(), roadMap.isPublic(),  nodes);
     }
 
     @Override

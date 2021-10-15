@@ -33,22 +33,22 @@ class RoadMapControllerTest {
     @MockBean
     private LoginMemberArgumentResolver loginMemberArgumentResolver;
 
-    @Test
-    void 로드맵_조회를_확인해본다() throws Exception {
-        //given
-        RoadMap roadMap = RoadMap.from("제목1");
-        Method privateSetter = RoadMap.class.getDeclaredMethod("setId", Long.class);
-        privateSetter.setAccessible(true);
-        privateSetter.invoke(roadMap, 1L);
-
-        long roadMapId = 1L;
-
-        //when
-        when(roadMapService.findRoadMapById(roadMapId)).thenReturn(RoadMapLookUpResponse.from(roadMap));
-
-        //then
-        mockMvc.perform(get("/api/roadmap/{roadMapId}", roadMapId)
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-                .andDo(print());
-    }
+//    @Test
+//    void 로드맵_조회를_확인해본다() throws Exception {
+//        //given
+//        RoadMap roadMap = RoadMap.from("제목1");
+//        Method privateSetter = RoadMap.class.getDeclaredMethod("setId", Long.class);
+//        privateSetter.setAccessible(true);
+//        privateSetter.invoke(roadMap, 1L);
+//
+//        long roadMapId = 1L;
+//
+//        //when
+//        when(roadMapService.findRoadMapById(roadMapId)).thenReturn(RoadMapLookUpResponse.from(roadMap));
+//
+//        //then
+//        mockMvc.perform(get("/api/roadmap/{roadMapId}", roadMapId)
+//                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+//                .andDo(print());
+//    }
 }

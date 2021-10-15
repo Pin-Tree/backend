@@ -1,5 +1,7 @@
 package com.trio.pintree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +20,12 @@ public class ParentChild {
     @Column(name = "parent_child_id")
     private Long id;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Node parent;
 
+    @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "child_id")
     private Node child;

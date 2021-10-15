@@ -1,5 +1,7 @@
 package com.trio.pintree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trio.pintree.roadmap.domain.RoadMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,12 +41,15 @@ public class Node {
     @Column(name = "node_memo")
     private String memo;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "child", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private ParentChild parent;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ParentChild> children = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roadmap_id")
     private RoadMap roadMap;

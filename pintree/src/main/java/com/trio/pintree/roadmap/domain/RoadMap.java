@@ -1,5 +1,7 @@
 package com.trio.pintree.roadmap.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trio.pintree.node.domain.Node;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,6 +29,7 @@ public class RoadMap {
     @Column(name = "is_public")
     private boolean isPublic = false;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "roadMap", fetch = FetchType.LAZY)
     private List<Node> nodes = new ArrayList<>();
 
