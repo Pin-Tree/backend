@@ -1,12 +1,13 @@
 package com.trio.pintree.roadmap.controller;
 
+import com.trio.pintree.roadmap.dto.CreateRoadMapRequest;
+import com.trio.pintree.roadmap.dto.CreateRoadMapResponse;
 import com.trio.pintree.roadmap.dto.RoadMapLookUpResponse;
 import com.trio.pintree.roadmap.service.RoadMapService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,4 +20,11 @@ public class RoadMapController {
     public RoadMapLookUpResponse getRoadMap(@PathVariable Long roadMapId) {
         return roadMapService.findRoadMapById(roadMapId);
     }
+
+    @PostMapping
+    public ResponseEntity<CreateRoadMapResponse> createRoadMap(@RequestBody CreateRoadMapRequest createRoadMapRequest) {
+        CreateRoadMapResponse createRoadMapResponse = roadMapService.createRoadMap(createRoadMapRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createRoadMapResponse);
+    }
+
 }

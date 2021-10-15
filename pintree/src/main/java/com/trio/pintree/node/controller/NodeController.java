@@ -13,27 +13,31 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/node")
+@RequestMapping("/api/roadmaps/{roadmapId}/nodes")
 public class NodeController {
 
     private final NodeService nodeService;
 
     @PostMapping("/official")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CreateNodeResponse> createOfficialNode(@RequestBody CreateOfficialNodeRequest createRequest) {
+    public ResponseEntity<CreateNodeResponse> createOfficialNode(
+            @PathVariable Long roadmapId,
+            @RequestBody CreateOfficialNodeRequest createRequest
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(nodeService.createOfficialNode(createRequest));
+                .body(nodeService.createOfficialNode(roadmapId, createRequest));
     }
 
     @PostMapping("/custom")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CreateNodeResponse> createCustomNode(@RequestBody CreateCustomNodeRequest createRequest) {
+    public ResponseEntity<CreateNodeResponse> createCustomNode(
+            @PathVariable Long roadmapId,
+            @RequestBody CreateCustomNodeRequest createRequest
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(nodeService.createCustomNode(createRequest));
+                .body(nodeService.createCustomNode(roadmapId, createRequest));
     }
-
-
 
 }

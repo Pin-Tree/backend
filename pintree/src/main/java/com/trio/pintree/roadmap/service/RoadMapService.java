@@ -1,12 +1,17 @@
 package com.trio.pintree.roadmap.service;
 
+import com.trio.pintree.node.domain.Node;
+import com.trio.pintree.node.dto.LookupNodeResponse;
+import com.trio.pintree.node.repository.NodeRepository;
 import com.trio.pintree.roadmap.domain.RoadMap;
-import com.trio.pintree.roadmap.dto.RoadMapDto;
-import com.trio.pintree.roadmap.dto.RoadMapLookUpResponse;
+import com.trio.pintree.roadmap.dto.*;
 import com.trio.pintree.roadmap.exception.NotFoundRoadMapException;
 import com.trio.pintree.roadmap.repository.RoadMapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class RoadMapService {
 
     private final RoadMapRepository roadMapRepository;
+    private final NodeRepository nodeRepository;
 
     public boolean setRoadMapPublic(RoadMapDto roadMapDto) {
         RoadMap roadMap = roadMapRepository.findById(roadMapDto.getRoadMapId())
@@ -32,6 +38,18 @@ public class RoadMapService {
     public RoadMapLookUpResponse findRoadMapById(Long roadMapId) {
         RoadMap roadMap = roadMapRepository.findById(roadMapId)
                 .orElseThrow(NotFoundRoadMapException::new);
-        return RoadMapLookUpResponse.from(roadMap);
+
+        List<Node> nodeList = nodeRepository.findAllByRoadMapId(roadMapId);
+        List<LookupNodeResponse> nodeResponseList = nodeList.stream()
+                .map(LookupNodeResponse::from)
+                .collect(Collectors.toList());
+
+        return RoadMapLookUpResponse.from(roadMap, nodeResponseList);
+    }
+
+    public CreateRoadMapResponse createRoadMap(CreateRoadMapRequest createRoadMapRequest) {
+        RoadMap roadMap = RoadMap.from(createRoadMapRequest.getRoadmapTitle());
+        roadMapRepository.save(roadMap);
+        return CreateRoadMapResponse.from(roadMap);
     }
 }
