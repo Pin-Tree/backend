@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfficialNodeInfoRepository<T extends OfficialNodeInfo> extends JpaRepository<T, Long> {
-    List<T> findByNodeId(Long nodeId);
+    List<T> findByOfficialCategoryId(Long officialCategoryId);
 
-    Optional<T> findByNodeIdAndInfoId(Long nodeId, Long infoId);
+    Optional<T> findByOfficialCategoryIdAndInfoId(Long officialCategoryId, Long infoId);
 
     @Transactional
     void deleteByInfoId(Long infoId);

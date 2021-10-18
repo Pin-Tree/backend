@@ -1,7 +1,7 @@
 package com.trio.pintree.node.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.trio.pintree.nodeInfo.domain.OfficialCategory;
 import com.trio.pintree.roadmap.domain.RoadMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -53,6 +53,10 @@ public class Node {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roadmap_id")
     private RoadMap roadMap;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "official_category_id")
+    private OfficialCategory officialCategory;
 
     private Node(RoadMap roadMap, String name, long index, boolean isMain, boolean isOfficial, boolean isUp) {
         this.roadMap = roadMap;

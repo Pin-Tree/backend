@@ -1,12 +1,13 @@
 package com.trio.pintree.nodeInfo.service;
 
-import com.trio.pintree.node.domain.Node;
 import com.trio.pintree.node.repository.NodeRepository;
 import com.trio.pintree.nodeInfo.domain.BookInfo;
+import com.trio.pintree.nodeInfo.domain.OfficialCategory;
 import com.trio.pintree.nodeInfo.dto.BookInfoDto;
 import com.trio.pintree.nodeInfo.dto.BookInfoRequestDto;
 import com.trio.pintree.nodeInfo.dto.BookInfosDto;
 import com.trio.pintree.nodeInfo.repository.BookInfoRepository;
+import com.trio.pintree.nodeInfo.repository.OfficialCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +19,24 @@ import java.util.stream.Collectors;
 public class BookInfoService {
     private final BookInfoRepository bookInfoRepository;
     private final NodeRepository nodeRepository;
+    private final OfficialCategoryRepository officialCategoryRepository;
 
-    public void save(Long nodeId, BookInfoRequestDto infoDto) throws Exception {
-
-        Node findNode = nodeRepository.findById(nodeId).orElseThrow(Exception::new);
-        BookInfo info = BookInfoRequestDto.of(findNode, infoDto);
+    public void save(Long officialCategoryId, BookInfoRequestDto infoDto) throws Exception {
+        OfficialCategory findCategory = officialCategoryRepository.findById(officialCategoryId).orElseThrow(Exception::new);
+        ;
+        BookInfo info = BookInfoRequestDto.of(findCategory, infoDto);
 
         bookInfoRepository.save(info);
     }
 
-    public BookInfosDto findByNodeId(Long nodeId) {
-        List<BookInfo> bookInfoList = bookInfoRepository.findByNodeId(nodeId);
+    public BookInfosDto findAllByOfficialCategoryId(Long officialCategoryId) {
+        List<BookInfo> bookInfoList = bookInfoRepository.findByOfficialCategoryId(officialCategoryId);
         List<BookInfoDto> bookInfoListDto = bookInfoList.stream().map(BookInfoDto::from).collect(Collectors.toList());
         return BookInfosDto.from(bookInfoListDto);
     }
 
-    public BookInfoDto findByNodeIdAndInfoId(Long nodeId, Long infoId) throws Exception {
-        BookInfo bookInfo = bookInfoRepository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+    public BookInfoDto findByOfficialCategoryId(Long officialCategoryId, Long infoId) throws Exception {
+        BookInfo bookInfo = bookInfoRepository.findByOfficialCategoryIdAndInfoId(officialCategoryId, infoId).orElseThrow(Exception::new);
         return BookInfoDto.from(bookInfo);
     }
 
@@ -42,8 +44,8 @@ public class BookInfoService {
         bookInfoRepository.deleteByInfoId(infoId);
     }
 
-    public void update(long nodeId, long infoId, BookInfoRequestDto bookInfo) throws Exception {
-        BookInfo findBookInfo = bookInfoRepository.findByNodeIdAndInfoId(nodeId, infoId).orElseThrow(Exception::new);
+    public void update(Long officialCategoryId, Long infoId, BookInfoRequestDto bookInfo) throws Exception {
+        BookInfo findBookInfo = bookInfoRepository.findByOfficialCategoryIdAndInfoId(officialCategoryId, infoId).orElseThrow(Exception::new);
         // setter 써야하나?
     }
 }

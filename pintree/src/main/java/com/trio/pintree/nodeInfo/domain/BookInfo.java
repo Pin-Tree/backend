@@ -1,7 +1,7 @@
 package com.trio.pintree.nodeInfo.domain;
 
-import com.trio.pintree.node.domain.Node;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;
@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@DiscriminatorValue("book")
 @ToString
+@NoArgsConstructor
+@DiscriminatorValue("book")
 public class BookInfo extends OfficialNodeInfo {
 
     private String publisher;
@@ -20,17 +21,19 @@ public class BookInfo extends OfficialNodeInfo {
 
     private Integer price;
 
-    public BookInfo(Node node, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl, String publisher, String author, Integer price) {
+    public BookInfo(OfficialCategory officialCategory,
+                    String title,
+                    String description,
+                    LocalDateTime date,
+                    String thumbnail,
+                    Integer wishCount,
+                    String shortcutUrl, String publisher, String author, Integer price) {
 
-        super(node, title, description, date, thumbnail, wishCount, shortcutUrl);
+        super(officialCategory, title, description, date, thumbnail, wishCount, shortcutUrl);
 
         this.publisher = publisher;
         this.author = author;
         this.price = price;
-    }
-
-    public BookInfo() {
-
     }
 
     public static Builder builder() {
@@ -39,7 +42,7 @@ public class BookInfo extends OfficialNodeInfo {
 
     public static class Builder {
 
-        private Node node;
+        private OfficialCategory officialCategory;
         private String title;
         private String description;
         private LocalDateTime date;
@@ -53,8 +56,8 @@ public class BookInfo extends OfficialNodeInfo {
         private Integer price;
 
 
-        public Builder node(Node node) {
-            this.node = node;
+        public Builder officialCategory(OfficialCategory officialCategory) {
+            this.officialCategory = officialCategory;
             return this;
         }
 
@@ -105,7 +108,7 @@ public class BookInfo extends OfficialNodeInfo {
         }
 
         public BookInfo build() {
-            return new BookInfo(node, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
+            return new BookInfo(officialCategory, title, description, date, thumbnail, wishCount, shortcutUrl, publisher, author, price);
         }
 
     }

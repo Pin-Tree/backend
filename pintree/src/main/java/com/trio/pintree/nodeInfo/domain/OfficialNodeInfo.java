@@ -1,6 +1,5 @@
 package com.trio.pintree.nodeInfo.domain;
 
-import com.trio.pintree.node.domain.Node;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -17,9 +16,6 @@ public abstract class OfficialNodeInfo {
     //TODO. Node 객체로 변경해야함. (연관관계 맺을 때 생각)
     //TODO. BookInfo... 등 자식 클래스에서 nodeId를 많이 사용하고 있으므로 변경할 때 참고할 것
 
-    @ManyToOne
-    @JoinColumn(name = "node_id")
-    private Node node;
 
     private String title;
 
@@ -33,8 +29,18 @@ public abstract class OfficialNodeInfo {
 
     private String shortcutUrl;
 
-    public OfficialNodeInfo(Node node, String title, String description, LocalDateTime date, String thumbnail, Integer wishCount, String shortcutUrl) {
-        this.node = node;
+    @ManyToOne
+    @JoinColumn(name = "official_category_id")
+    private OfficialCategory officialCategory;
+
+    public OfficialNodeInfo(OfficialCategory officialCategory,
+                            String title,
+                            String description,
+                            LocalDateTime date,
+                            String thumbnail,
+                            Integer wishCount,
+                            String shortcutUrl) {
+        this.officialCategory = officialCategory;
         this.title = title;
         this.description = description;
         this.date = date;

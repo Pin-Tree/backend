@@ -15,30 +15,30 @@ public class BookInfoController {
 
     private final BookInfoService bookInfoService;
 
-    @PostMapping("{nodeId}/bookInfo")
+    @PostMapping("{categoryId}/bookInfo")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveBookInfo(@PathVariable Long nodeId, @RequestBody BookInfoRequestDto bookInfo) throws Exception {
-        bookInfoService.save(nodeId, bookInfo);
+    public void saveBookInfo(@PathVariable Long categoryId, @RequestBody BookInfoRequestDto bookInfo) throws Exception {
+        bookInfoService.save(categoryId, bookInfo);
     }
 
-    @GetMapping("{nodeId}/bookInfo")
-    public BookInfosDto getBookInfoList(@PathVariable Long nodeId) {
-        return bookInfoService.findByNodeId(nodeId);
+    @GetMapping("{categoryId}/bookInfo")
+    public BookInfosDto getBookInfoList(@PathVariable Long categoryId) {
+        return bookInfoService.findAllByOfficialCategoryId(categoryId);
     }
 
-    @GetMapping("{nodeId}/bookInfo/{infoId}")
-    public BookInfoDto getBookInfo(@PathVariable(name = "nodeId") Long nodeId, @PathVariable(name = "infoId") Long infoId) throws Exception {
-        return bookInfoService.findByNodeIdAndInfoId(nodeId, infoId);
+    @GetMapping("{categoryId}/bookInfo/{infoId}")
+    public BookInfoDto getBookInfo(@PathVariable Long categoryId, @PathVariable Long infoId) throws Exception {
+        return bookInfoService.findByOfficialCategoryId(categoryId, infoId);
     }
 
     @DeleteMapping("bookInfo/{infoId}")
-    public void deleteBookInfo(@PathVariable(name = "infoId") Long infoId) throws Exception {
+    public void deleteBookInfo(@PathVariable Long infoId) throws Exception {
         bookInfoService.deleteByInfoId(infoId);
     }
 
     // 아직 미완
-    @PutMapping("{nodeId}/bookInfo/{infoId}")
-    public void modifyBookInfo(@PathVariable long nodeId, @PathVariable long infoId, @RequestBody BookInfoRequestDto bookInfo) throws Exception {
-        bookInfoService.update(nodeId, infoId, bookInfo);
+    @PutMapping("{categoryId}/bookInfo/{infoId}")
+    public void modifyBookInfo(@PathVariable Long categoryId, @PathVariable Long infoId, @RequestBody BookInfoRequestDto bookInfo) throws Exception {
+        bookInfoService.update(categoryId, infoId, bookInfo);
     }
 }
