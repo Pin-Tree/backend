@@ -1,5 +1,7 @@
 package com.trio.pintree.node.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trio.pintree.roadmap.domain.RoadMap;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,17 +41,21 @@ public class Node {
     @Column(name = "node_memo")
     private String memo;
 
-    @OneToOne(mappedBy = "child")
+    @JsonBackReference
+    @OneToOne(mappedBy = "child", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private ParentChild parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonBackReference
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ParentChild> children = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roadmap_id")
     private RoadMap roadMap;
 
-    private Node(String name, long index, boolean isMain, boolean isOfficial, boolean isUp) {
+    private Node(RoadMap roadMap, String name, long index, boolean isMain, boolean isOfficial, boolean isUp) {
+        this.roadMap = roadMap;
         this.name = name;
         this.index = index;
         this.isMain = isMain;
@@ -57,16 +63,21 @@ public class Node {
         this.isUp = isUp;
     }
 
-    public static Node createMainNode(String name, long index, boolean isOfficial) {
+    public static Node createMainNode(RoadMap roadMap, String name, long index, boolean isOfficial) {
         final boolean isMain = true;
         final boolean isUp = true;
 
-        return new Node(name, index, isMain, isOfficial, isUp);
+        return new Node(roadMap, name, index, isMain, isOfficial, isUp);
     }
 
-    public static Node createNonMainNode(String name, long index, boolean isOfficial, boolean isUp, Node parent) {
+    public static Node createNonMainNode(RoadMap roadMap,
+                                         String name,
+                                         long index,
+                                         boolean isOfficial,
+                                         boolean isUp,
+                                         Node parent) {
         final boolean isMain = false;
-        Node node = new Node(name, index, isOfficial, isMain, isUp);
+        Node node = new Node(roadMap, name, index, isOfficial, isMain, isUp);
 
         ParentChild parentChild = ParentChild.of(parent, node);
         parent.addChild(parentChild);
@@ -76,10 +87,12 @@ public class Node {
 
     private void addChild(ParentChild parentChild) {
         children.add(parentChild);
+        parentChild.setParent(this);
     }
 
     private void addParent(ParentChild parentChild) {
         this.parent = parentChild;
+        parentChild.setChild(this);
     }
 
     @Override
